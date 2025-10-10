@@ -1,14 +1,59 @@
 ﻿@{
     ViewBag.Title = "Home";
 }
+@section styles {
+    <link rel="stylesheet" href="~/Content/Css/Home.css" />
+}
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title></title>
+
 </head>
 <body>
-    <span> BODYYYYYYYYYYYYYY</span>
+    <div class="banner">
+        <img src="~/Content/Images/10.10_Voucher_1545_500_V.png" />
+    </div>
+    <div class="voucher-container">
+        <span style="color:dodgerblue; font-size:30px; font-weight:bold;">DEAL CHỒNG DEAL</span>
+    </div>
+    <div class="voucher-container">
+        <div class="voucher">
+            <img src="~/Content/Images/HP_10.10_VOUVHER_150_VN.png" />
+        </div>
+        <div class="voucher">
+            <img src="~/Content/Images/HP_10.10_VOUVHER_250_VN.png" />
+        </div>
+        <div class="voucher">
+            <img src="~/Content/Images/HP_10.10_VOUVHER_500_VN.png" />
+        </div>
+    </div>
+    <div class="combo-container">
+        <span style="color:dodgerblue; font-size:30px; font-weight:bold;">THƯƠNG HIỆU ĐƯỢC YÊU THÍCH NHẤT</span>
+    </div>
+    <div class="combo-container">
+        <div class="combo">
+            <img src="~/Content/Images/HP_10.10_TOP_NIKE_VN.png" />
+        </div>
+        <div class="combo">
+            <img src="~/Content/Images/HP_10.10_TOP_DAS_VN.png" />
+        </div>
+    </div>
+    <div class="combo-container">
+        <div class="combo">
+            <img src="~/Content/Images/HP_10.10_TOP_UA_VN.png" />
+        </div>
+        <div class="combo">
+            <img src="~/Content/Images/HP_10.10_TOP_COLUM_VN.png" />
+        </div>      
+    </div>
+    <div class="brand-container">
+        <button class="brand-btn active">NIKE</button>
+        <button class="brand-btn">ADIDAS</button>
+        <button class="brand-btn">UNDER ARMOUR</button>
+        <button class="brand-btn">COLUMBIA</button>
+    </div> 
 </body>
 </html>
