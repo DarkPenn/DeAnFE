@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <script src="/Scripts/MasterLayout.js" defer></script>
-
+    @RenderSection("styles", required: false)   <!-- Cho phép trang con thêm CSS -->
 </head>
 <body>
     <!-- HEADER -->
@@ -22,17 +22,17 @@
             <button class="topbar-btn prev">&#10094;</button>
             <div class="topbar-content"> 
                 <div class="topbar-item active"> 
-                    🔥 Giảm giá đến 50% cho tất cả giày thể thao Adidas! 
+                    10.10 - GIẢM ĐẾN 50% + VOUCHER ĐẾN 500K
                     <a href="#" class="topbar-link">Xem ngay</a> 
                 </div> 
                 <div class="topbar-item"> 
-                    🏃‍♂️ Mua 1 tặng 1 cho trang phục chạy bộ cuối tuần này! 
+                    10.10 - MUA 2 GIẢM 30%
                     <a href="#" class="topbar-link">Xem ngay</a> </div> 
                 <div class="topbar-item"> 
-                    🎁 Thành viên Supersports nhận thêm ưu đãi 10% toàn bộ hóa đơn! 
+                    10.10 - GIÁ ĐẶC BIỆT
                     <a href="#" class="topbar-link">Xem ngay</a> 
                 </div> <div class="topbar-item"> 
-                    🚚 Miễn phí giao hàng toàn quốc cho đơn từ 500.000đ! 
+                    SPEEDO - GIÁ ĐẶC BIỆT 
                     <a href="#" class="topbar-link">Xem ngay</a> 
                 </div> 
             </div> 
@@ -40,33 +40,41 @@
         </div> <!-- Main navigation --> 
             <div class="main-header"> 
                 <div class="logo"> 
-                    <img src="https://supersports.com.vn/images/supersports-logo.svg" alt="Supersports Logo"> 
+                    <img src="~/Content/Images/logo-color.png" alt="Supersports Logo"> 
                 </div> 
                 <nav class="nav-menu"> 
                     <ul> 
                         <li>
                             <a href="#">Hàng Mới</a>
+                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
                         </li> 
                         <li>
                             <a href="#">Nam</a>
+                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
                         </li> 
                         <li>
                             <a href="#">Nữ</a>
+                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
                         </li> 
                         <li>
                             <a href="#">Trẻ Em</a>
+                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
                         </li> 
                         <li>
-                            <a href="#">Phụ Kiện</a>    
+                            <a href="#">Phụ Kiện</a>
+                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
                         </li> 
                         <li>
                             <a href="#">Thương Hiệu</a>
+                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
                         </li> 
                         <li>
                             <a href="#">Thể Thao</a>
+                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
                         </li> 
                         <li>
                             <a href="#" class="highlight">Ưu Đãi</a>
+                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
                         </li> 
                     </ul> 
                 </nav> 
