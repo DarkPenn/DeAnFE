@@ -31,8 +31,8 @@ body {
     display: flex;
     justify-content: center;
     gap: 20px;
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 50px;
+    padding-right: 50px;
     padding-top:30px;
     padding-bottom: 20px;
 }
@@ -53,8 +53,8 @@ body {
     justify-content: center;
     gap: 20px;
     padding-top:30px;
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 50px;
+    padding-right: 50px;
     padding-bottom: 20px;
 }
 .combo{
@@ -72,10 +72,18 @@ body {
     display: flex;
     justify-content: center;
     gap: 20px;
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 50px;
+    padding-right: 50px;
     padding-bottom: 20px;
 }
+.brand-section {
+    display: none;
+    text-align: center;
+    padding: 20px 0;
+}
+    .brand-section.active {
+        display: block;
+    }
 .brand-btn {
     border: 1px solid #001e36;
     background-color:white;
@@ -86,6 +94,7 @@ body {
     gap: 20px;
     justify-content: center;
     align-items: center;
+    cursor:pointer;
 }
     .brand-btn:hover {
         color: greenyellow;
@@ -101,22 +110,56 @@ body {
     justify-content: left;
     gap: 20px;
     padding-top: 30px;
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 50px;
+    padding-right: 50px;
     padding-bottom: 20px;
 }
-.newcombo {
-    display: inline-block;
+
+.slider {
+    position: relative;
+    width: 100%;
     overflow: hidden;
-    cursor: pointer;
+    border-radius: 12px;
+    padding-left:50px;
+    padding-right:50px;
 }
-
-    .newcombo img {
-        display: block;
-        width: 100%;
-        height: auto;
+.slider-track {
+    display: flex;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+}
+    .slider-track::-webkit-scrollbar {
+        display: none;
     }
-
-
-
-
+    .slider-track img {
+        width: 280px;
+        height: auto;
+        margin: 10px;
+        border-radius: 10px;
+        flex-shrink: 0;
+        object-fit: cover;
+        cursor: grab;
+        transition: transform 0.2s;
+    }
+        .slider-track img:hover {
+            transform: scale(1.03);
+        }
+/* Nút điều khiển */
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: black;
+    border: none;
+    font-size: 22px;
+    width: 35px;
+    height: 50px;
+    cursor: pointer;
+    z-index: 5;
+}
+    .arrow.left {
+        left: 60px;
+    }
+    .arrow.right {
+        right: 60px;
+    }
