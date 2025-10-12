@@ -1,0 +1,595 @@
+﻿@{
+    ViewBag.Title = "Pay";
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh toán</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background-color: #f6f6f6;
+            color: #333;
+            font-size: 14px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
+        /* Global Layout */
+        .checkout-container {
+            display: flex; /* Dùng flexbox thay cho grid để dễ quản lý */
+            justify-content: center;
+            gap: 40px;
+            max-width: 1100px;
+            margin: 0 auto; /* Đưa container chính lên đầu */
+            padding: 20px 20px 40px 20px;
+        }
+
+        /* LEFT SECTION (Shipping Info) */
+        .checkout-left {
+            flex: 1; /* Chiếm phần lớn diện tích */
+            max-width: 550px;
+        }
+
+            .checkout-left h2, .checkout-left h3 {
+                font-weight: 600;
+                font-size: 20px;
+                margin-top: 20px;
+                margin-bottom: 10px;
+            }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 15px;
+        }
+
+            .section-heading h3 {
+                margin: 0;
+            }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            font-size: 13px;
+            margin-bottom: 25px;
+            color: #999;
+        }
+
+            .breadcrumb a {
+                color: #007bff;
+                text-decoration: none;
+            }
+
+            .breadcrumb strong {
+                color: #333;
+                font-weight: 500;
+            }
+
+        /* Form Styling */
+        .form-field-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+            .form-field-group > div {
+                flex: 1;
+            }
+
+            .form-field-group label {
+                font-weight: 500;
+                display: block;
+                margin-bottom: 4px;
+                font-size: 14px;
+            }
+
+            .form-field-group input, .form-field-group select {
+                width: 100%;
+                padding: 12px;
+                border-radius: 4px;
+                border: 1px solid #ddd;
+                outline: none;
+                font-size: 14px;
+                background-color: white;
+                transition: border-color 0.2s;
+            }
+
+                .form-field-group input:focus, .form-field-group select:focus {
+                    border-color: #007bff;
+                }
+
+        /* Specific Field Adjustments (Email/Contact/Address) */
+        #email-input-container {
+            margin-bottom: 15px;
+        }
+
+            #email-input-container input {
+                padding: 12px;
+                border-radius: 4px;
+                border: 1px solid #ddd;
+                width: 100%;
+                font-size: 16px;
+            }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+            .checkbox-container input {
+                margin-right: 8px;
+                transform: scale(1.1);
+                accent-color: #333;
+            }
+
+        .shipping-note {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .required-text {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        /* Form Action Buttons */
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        .back-link {
+            color: #007bff;
+            font-size: 14px;
+        }
+
+        .next-button {
+            background: #002b5c;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+            .next-button:hover {
+                background: #001f4d;
+            }
+
+        /* RIGHT SECTION (Order Summary - Tái sử dụng CSS từ file Thanh Toán) */
+        .checkout-right {
+            width: 350px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 4px;
+            /* Giống như ảnh 1 và 2, sử dụng nền trắng */
+        }
+
+            .checkout-right h3 {
+                font-weight: 600;
+                font-size: 18px;
+                margin-top: 0;
+                margin-bottom: 20px;
+            }
+
+        .product {
+            display: flex;
+            align-items: flex-start;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .product-image-container {
+            position: relative;
+            margin-right: 15px;
+        }
+
+        .product img {
+            width: 60px;
+            height: 60px;
+            border-radius: 4px;
+        }
+
+        .quantity-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #333;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        .product-info {
+            flex: 1;
+            line-height: 1.3;
+            font-size: 13px;
+        }
+
+            .product-info p {
+                margin: 0;
+            }
+
+        .product-name {
+            font-weight: 500;
+            margin-bottom: 2px !important;
+        }
+
+        .product-variant {
+            color: #999;
+        }
+
+        .product-price {
+            font-weight: 500;
+            font-size: 14px;
+            margin: 0;
+            white-space: nowrap;
+        }
+
+        .coupon-section {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+            .coupon-section input {
+                flex-grow: 1;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 4px 0 0 4px;
+                font-size: 14px;
+            }
+
+            .coupon-section button {
+                padding: 10px 15px;
+                border: 1px solid #ddd;
+                border-left: none;
+                background: #f8f9fa;
+                border-radius: 0 4px 4px 0;
+                cursor: pointer;
+                font-size: 14px;
+                color: #333;
+                font-weight: 500;
+            }
+
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+            .summary-line .amount {
+                font-weight: 500;
+            }
+
+        .total-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+            margin-top: 15px;
+        }
+
+        .total-label {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .total-amount-container {
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .vnd-label {
+            font-size: 12px;
+            margin-right: 5px;
+            color: #999;
+        }
+
+        .total-final-amount {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .shipping-info-icon {
+            color: #666;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+
+        /* Error Styling */
+        .error-text {
+            color: red;
+            font-size: 12px;
+            margin-top: 3px;
+            font-weight: 500;
+        }
+
+        input.error-border, select.error-border {
+            border-color: red !important;
+        }
+
+        .phone-input-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+            .phone-input-group input {
+                flex-grow: 1;
+            }
+
+        .phone-info-icon {
+            color: #666;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <main class="checkout-container">
+        <section class="checkout-left">
+            <div class="breadcrumb">
+                <a href="#">Giỏ hàng</a> &gt; <strong>Thông tin</strong> &gt; <a href="#">Vận chuyển</a> &gt; <a href="#">Thanh toán</a>
+            </div>
+
+            <form id="checkoutForm" novalidate>
+                <div class="section-heading">
+                    <h3>Thông tin liên lạc</h3>
+                    <a href="#" class="login-link">Đăng nhập</a>
+                </div>
+                <div id="email-input-container">
+                    <input type="email" id="email" placeholder="example@gmail.com" value="chaungocdien0460@gmail.com">
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="subscribe" checked>
+                    <label for="subscribe">Gửi cho tôi tin tức và ưu đãi qua email</label>
+                </div>
+
+                <h3>Địa chỉ giao hàng</h3>
+                <p class="shipping-note">Địa chỉ này cũng sẽ được dùng làm địa chỉ thanh toán cho đơn hàng này.</p>
+
+                <div class="form-field-group">
+                    <div>
+                        <select id="country">
+                            <option>Việt Nam</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-field-group">
+                    <div>
+                        <input type="text" id="name" placeholder="Tên" value="ad" class="error-border">
+                        <div class="error-text" id="err-name"></div>
+                    </div>
+                    <div>
+                        <input type="text" id="lastName" placeholder="Họ" value="add">
+                        <div class="error-text" id="err-lastName"></div>
+                    </div>
+                </div>
+
+                <div class="form-field-group">
+                    <div>
+                        <input type="text" id="address" placeholder="Địa chỉ nhận hàng (Số nhà, đường phố, hẻm, Căn hộ...)" value="da" class="error-border">
+                        <div class="error-text" id="err-address">Trường này là bắt buộc</div>
+                    </div>
+                </div>
+
+                <div class="form-field-group">
+                    <div>
+                        <select id="city" class="error-border">
+                            <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                            <option value="Hà Nội">Hà Nội</option>
+                            <option value="Đà Lạt">Đà Lạt</option>
+                        </select>
+                        <div class="error-text" id="err-city">Trường này là bắt buộc</div>
+                    </div>
+                    <div>
+                        <input type="text" id="zipCode" placeholder="Mã bưu điện (Thông tin điền tự động...)" value="0123531" disabled>
+                        <div class="error-text" id="err-zipCode"></div>
+                    </div>
+                </div>
+
+                <div class="form-field-group">
+                    <div>
+                        <select id="district" class="error-border">
+                            <option value="">Chọn Quận/Huyện</option>
+                            <option>Quận 1</option>
+                            <option>Quận 2</option>
+                            <option>Quận 3</option>
+                            <option>Quận 4</option>
+                            <option>Quận 5</option>
+                            <option>Quận 6</option>
+                            <option>Quận 7</option>
+                            <option>Quận 8</option>
+                        </select>
+                        <div class="error-text" id="err-district">Trường này là bắt buộc</div>
+                    </div>
+                    <div>
+                        <select id="ward" class="error-border">
+                            <option value="">Chọn Phường/Xã</option>
+                            <option>Phường 1</option>
+                            <option>Phường 2</option>
+                            <option>Phường 3</option>
+                            <option>Phường 3</option>
+                            <option>Phường 4</option>
+                            <option>Phường 5</option>
+                            <option>Phường 6</option>
+                            <option>Phường 7</option>
+                            <option>Phường 8</option>
+                        </select>
+                        <div class="error-text" id="err-ward">Trường này là bắt buộc</div>
+                    </div>
+                </div>
+
+                <div class="form-field-group">
+                    <div>
+                        <label for="phone">Điện thoại</label>
+                        <div class="phone-input-group">
+                            <input type="text" id="phone" placeholder="09xxxxxxx" value="09xxxxxxx">
+                            <span class="phone-info-icon">ⓘ</span>
+                        </div>
+                        <div class="error-text" id="err-phone"></div>
+                    </div>
+                </div>
+
+                <div class="checkbox-container">
+                    <input type="checkbox" id="saveAddress">
+                    <label for="saveAddress">Lưu địa chỉ này</label>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="#" class="back-link">&lt; Quay trở lại giỏ hàng</a>
+                    <a href="@Url.Action("Payment_List","Home")"><p id="orderBtn" class="next-button">Chọn hình thức vận chuyển ></p></a>
+                </div>
+
+                <div class="footer-links" style="margin-top: 20px;">
+                    <a href="#">Chính sách đổi trả</a> | <a href="#">Chính sách vận chuyển</a> | <a href="#">Chính sách quyền riêng tư</a> | <a href="#">Điều khoản dịch vụ</a>
+                </div>
+            </form>
+        </section>
+
+        <section class="checkout-right">
+            <h3>Đơn hàng</h3>
+            <div class="product-list">
+                <div class="product">
+                    <div class="product-image-container">
+                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/1f6cba9a-f23a-4b1e-8a09-0c75e3b6509a/pegasus-plus-mens-road-running-shoes-qZlJw5.png" alt="Sản phẩm">
+                        <span class="quantity-badge">1</span>
+                    </div>
+                    <div class="product-info">
+                        <p class="product-name">Giày Chạy Bộ Nam Nike Pegasus Plus - Đen</p>
+                        <p class="product-variant">ĐEN / US 7.5</p>
+                    </div>
+                    <p class="product-price">5.809.000 ₫</p>
+                </div>
+            </div>
+
+            <div class="coupon-section">
+                <input type="text" placeholder="Nhập mã khuyến mãi" />
+                <button>Áp dụng</button>
+            </div>
+
+            <div class="summary-line">
+                <span>Tổng tiền hàng</span>
+                <span class="amount">5.809.000 ₫</span>
+            </div>
+            <div class="summary-line">
+                <span>Phí vận chuyển <span class="shipping-info-icon">ⓘ</span></span>
+                <span class="amount">MIỄN PHÍ</span>
+            </div>
+
+            <div class="total-section">
+                <span class="total-label">Tổng thanh toán</span>
+                <div class="total-amount-container">
+                    <span class="vnd-label">VND</span>
+                    <span class="total-final-amount">5.809.000 ₫</span>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+    </footer>
+
+    <script>
+        document.getElementById('orderBtn').addEventListener('click', function () {
+            // Lấy giá trị từ các trường
+            const fields = {
+                email: document.getElementById('email'),
+                name: document.getElementById('name'),
+                lastName: document.getElementById('lastName'),
+                address: document.getElementById('address'),
+                city: document.getElementById('city'),
+                district: document.getElementById('district'),
+                ward: document.getElementById('ward'),
+                phone: document.getElementById('phone'),
+                // Giả định note không bắt buộc
+                note: document.getElementById('note') || { value: '' }
+            };
+
+            // Reset lỗi
+            document.querySelectorAll('.error-text').forEach(e => e.textContent = '');
+            document.querySelectorAll('input, select').forEach(el => el.classList.remove('error-border'));
+
+            let valid = true;
+
+            // KIỂM TRA BẮT BUỘC (Logic kiểm tra như lần trước)
+            const requiredFields = ['name', 'lastName', 'address', 'city', 'district', 'ward', 'phone'];
+
+            for (const key of requiredFields) {
+                const field = fields[key];
+                if (field && (field.value.trim() === '' || field.value.includes('Chọn'))) {
+                    document.getElementById(`err-${key}`).textContent = 'Trường này là bắt buộc';
+                    field.classList.add('error-border');
+                    valid = false;
+                }
+            }
+
+            // Kiểm tra SĐT
+            if (fields.phone.value.trim() !== '' && !/^(0|\+84)[0-9]{9,10}$/.test(fields.phone.value.trim())) {
+                document.getElementById('err-phone').textContent = '⚠️ Số điện thoại không hợp lệ.';
+                fields.phone.classList.add('error-border');
+                valid = false;
+            }
+
+            // LƯU VÀ CHUYỂN TRANG
+            if (valid) {
+                // Tạo đối tượng chứa thông tin giao hàng
+                const shippingInfo = {
+                    name: fields.name.value.trim() + ' ' + fields.lastName.value.trim(),
+                    email: fields.email.value.trim(),
+                    phone: fields.phone.value.trim(),
+                    address: fields.address.value.trim(),
+                    // Kết hợp Thành phố, Quận/Huyện, Phường/Xã vào một chuỗi address city
+                    city: fields.city.value.trim() + ', ' + fields.district.value.trim() + ', ' + fields.ward.value.trim(),
+                    note: fields.note.value.trim(),
+                    // THÊM: Thông tin vận chuyển mặc định để hiển thị trên trang Thanh toán
+                    shipping: "Phí vận chuyển - MIỄN PHÍ"
+                };
+                localStorage.setItem("shippingInfo", JSON.stringify(shippingInfo));
+
+                // Chuyển sang trang Thanh toán
+                window.location.href = "http://localhost:56486/Home/Pay";
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+

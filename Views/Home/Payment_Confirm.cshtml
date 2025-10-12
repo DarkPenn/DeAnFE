@@ -1,0 +1,780 @@
+﻿@{
+    ViewBag.Title = "End";
+}
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Toán Thẻ - SUPERSORTS | OnePay</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
+    <style>
+        /* Base Styles */
+        * {
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: #333;
+        }
+
+        body {
+            margin: 0;
+            background-color: #f6f6f6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Top Header */
+        .top-header {
+            width: 100%;
+            background-color: #002b5c; /* Màu xanh đậm */
+            color: white;
+            padding: 0px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .top-header-content {
+            display: flex;
+            align-items: center;
+            max-width: 1200px;
+            width: 100%;
+            padding: 0 0px;
+            justify-content: flex-end;
+        }
+
+        .top-header .lang-select {
+            display: flex;
+            align-items: center;
+            margin-right: 00px;
+        }
+
+            .top-header .lang-select img {
+                width: 20px;
+                margin-right: 0px;
+            }
+
+        .top-header span {
+            margin-left: 0px;
+            color: white;
+        }
+
+        /* Main Container */
+        .payment-container {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+            margin-top: 30px;
+            gap: 20px;
+            background: white;
+            padding: 0px; /* Loại bỏ padding ngoài cùng */
+            border-radius: 8px;
+        }
+
+        /* Left Sidebar - Phương thức thanh toán */
+        .payment-sidebar {
+            width: 250px;
+            background-color: #f0f8ff; /* Nền xanh nhạt cho sidebar */
+        }
+
+        .sidebar-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            background-color: #007bff; /* Màu xanh dương */
+            padding: 12px 15px;
+            margin-bottom: 20px;
+        }
+
+        .method-option {
+            display: flex;
+            align-items: center;
+            padding: 8px 15px;
+            margin-bottom: 5px;
+            border-left: 3px solid transparent;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+            .method-option.selected {
+                background-color: #e0f0ff;
+                border-left: 3px solid #007bff;
+                font-weight: 500;
+                color: #002b5c;
+            }
+
+            .method-option input[type="radio"] {
+                margin-right: 10px;
+                accent-color: #007bff;
+            }
+
+            .method-option span {
+                flex-grow: 1;
+            }
+
+            .method-option .logos img {
+                height: 14px;
+                margin-left: 5px;
+            }
+
+        /* Center Content - Form Nhập Thẻ */
+        .payment-form-area {
+            flex-grow: 1;
+            padding: 20px 20px 20px 0;
+        }
+
+        .form-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .card-type-tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .card-type-tab {
+            padding: 10px 15px;
+            cursor: pointer;
+            font-weight: 500;
+            color: #666;
+            position: relative;
+        }
+
+            .card-type-tab.active {
+                color: #333;
+                border-bottom: 2px solid #002b5c;
+                margin-bottom: -1px;
+                font-weight: 600;
+            }
+
+        .card-type-tab-sub {
+            font-size: 13px;
+            font-weight: normal;
+            color: #999;
+            margin-top: 5px;
+            display: block;
+        }
+
+        /* Form Styling */
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .form-field {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .input-group {
+            position: relative;
+            display: flex;
+        }
+
+        input[type="text"], input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            cursor: pointer;
+        }
+
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+            .checkbox-row input {
+                margin-right: 5px;
+                accent-color: #007bff;
+            }
+
+            .checkbox-row a {
+                color: #007bff;
+                text-decoration: underline;
+            }
+
+        .checkbox-label {
+            line-height: 1.4;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .guidance {
+            margin-top: 20px;
+            text-align: right;
+        }
+
+            .guidance a {
+                color: #007bff;
+                text-decoration: underline;
+                font-size: 13px;
+            }
+
+        .submit-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .submit-button {
+            background-color: #ccc;
+            color: #666;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 40%;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+            .submit-button.active {
+                background-color: #002b5c;
+                color: white;
+            }
+
+            .submit-button:not(.active):hover {
+                background-color: #bbb;
+            }
+
+            .submit-button.active:hover {
+                background-color: #001f4d;
+            }
+
+        .cancel-button {
+            color: #007bff;
+            text-decoration: none;
+            margin-top: 15px;
+            display: block;
+            font-size: 13px;
+        }
+
+        /* Right Sidebar - Order Info */
+        .order-summary-sidebar {
+            width: 300px;
+            padding: 20px;
+            background-color: white;
+        }
+
+            .order-summary-sidebar .logo {
+                text-align: center;
+                margin-bottom: 15px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+                .order-summary-sidebar .logo img {
+                    height: 30px;
+                }
+
+        .order-timer {
+            font-weight: 600;
+            color: #dc3545;
+            font-size: 14px;
+            border: 1px solid #dc3545;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .card-mockup-container {
+            padding: 10px;
+            background: #e9ecef;
+            border-radius: 8px;
+        }
+
+        .card-mockup {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #002b5c 0%, #007bff 100%);
+            border-radius: 10px;
+            margin: 0;
+            padding: 20px;
+            position: relative;
+        }
+
+            .card-mockup .chip {
+                width: 40px;
+                height: 30px;
+                background-color: #f7d23e;
+                border-radius: 5px;
+                margin-bottom: 15px;
+            }
+
+            .card-mockup .wave-icon {
+                position: absolute;
+                right: 20px;
+                top: 20px;
+                width: 25px;
+                height: 25px;
+                border: 2px solid white;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 12px;
+            }
+
+            .card-mockup .card-number {
+                font-size: 18px;
+                font-weight: 500;
+                color: white;
+                margin-bottom: 10px;
+            }
+
+            .card-mockup .expiry {
+                font-size: 14px;
+                color: white;
+                text-align: right;
+            }
+
+        .order-details {
+            margin-top: 10px;
+        }
+
+            .order-details p {
+                margin: 5px 0;
+                font-size: 13px;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .order-details .order-code-label {
+                font-weight: 500;
+                width: 100px;
+            }
+
+            .order-details .order-code-value {
+                font-weight: 600;
+                color: #333;
+                word-break: break-all;
+                flex: 1;
+                text-align: right;
+            }
+
+            .order-details .merchant {
+                font-size: 14px;
+                font-weight: 600;
+                color: #002b5c;
+                margin-top: 15px;
+            }
+
+        .order-amount-container {
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+
+            .order-amount-container p {
+                font-size: 14px;
+                margin: 0;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .order-amount-container .amount {
+                font-size: 24px;
+                font-weight: 700;
+                color: #dc3545;
+            }
+
+        .cancel-order {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+            .cancel-order a {
+                color: #dc3545;
+                font-size: 13px;
+            }
+
+        .powered-by {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 12px;
+            color: #666;
+            width: 100%;
+            padding: 10px 0;
+            border-top: 1px solid #ddd;
+        }
+
+            .powered-by span {
+                font-weight: 600;
+                color: #007bff;
+            }
+
+        /* Modal (Pop-up) Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 30px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+            .modal-content .status-icon {
+                font-size: 50px;
+                color: #28a745;
+                margin-bottom: 10px;
+            }
+
+            .modal-content h2 {
+                color: #28a745;
+                font-size: 24px;
+                margin-bottom: 15px;
+            }
+
+            .modal-content p {
+                font-size: 14px;
+                color: #666;
+                margin-bottom: 20px;
+            }
+
+        .modal-close {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+            .modal-close:hover {
+                background-color: #0056b3;
+            }
+
+        /* Error Styling */
+        .input-error {
+            border-color: red !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-header">
+        <div class="top-header-content">
+            <div class="lang-select">
+                <img src="https://flagcdn.com/vn.svg" alt="Vietnam Flag">
+                <span>VN</span>
+                <span style="font-size: 10px; margin-left: 5px;">▼</span>
+            </div>
+            <span>📞 1900 633 927 (07h00 - 24h00)</span>
+            <span>📧 support@onepay.vn</span>
+        </div>
+    </div>
+
+    <main class="payment-container">
+
+        <div class="payment-sidebar">
+            <div class="sidebar-title">Phương thức thanh toán</div>
+
+            <label class="method-option selected" for="radioCard">
+                <input type="radio" name="method" id="radioCard" checked>
+                <span>Thẻ tín dụng / Ghi nợ</span>
+                <div class="logos">
+                    <img src="~/Content/Images/VISA.jfif" alt="VISA">
+                    <img src="~/Content/Images/mastercard.jpg" alt="MasterCard">
+                    <img src="~/Content/Images/JCB.jpg" alt="JCB">
+                    <img src="~/Content/Images/AMEX.jpg" alt="Amex">
+                </div>
+            </label>
+
+            <label class="method-option" for="radioApple">
+                <input type="radio" name="method" id="radioApple">
+                <span>Thanh toán Apple Pay</span>
+                <div class="logos">
+                    <img src="~/Content/Images/napas.jpg" alt="Napas">
+                </div>
+            </label>
+
+            <label class="method-option" for="radioGoogle">
+                <input type="radio" name="method" id="radioGoogle">
+                <span>Thanh toán Google Pay</span>
+            </label>
+
+            <label class="method-option" for="radioATM">
+                <input type="radio" name="method" id="radioATM">
+                <span>Thẻ ATM / Tài khoản ngân hàng</span>
+            </label>
+
+            <label class="method-option" for="radioQR">
+                <input type="radio" name="method" id="radioQR">
+                <span>Quét mã QR với ứng dụng di động</span>
+            </label>
+        </div>
+
+        <div class="payment-form-area">
+
+            <div class="form-header">
+                <h3>Thẻ tín dụng / Ghi nợ</h3>
+                <p style="font-size: 13px; color: #666; margin-top: -10px;">Nhập các thông tin bên dưới</p>
+            </div>
+
+            <div class="card-type-tabs">
+                <div class="card-type-tab active" id="tabCardNumber">Số thẻ</div>
+                <div class="card-type-tab" id="tabQR">
+                    Quét mã QR
+                    <span class="card-type-tab-sub">ⓘ</span>
+                </div>
+            </div>
+
+            <form id="cardForm">
+                <div class="form-field">
+                    <label for="cardNumber">Số Thẻ *</label>
+                    <input type="text" id="cardNumber" placeholder="1234 5678 9101 1234">
+                    <div class="error-message" id="err-cardNumber"></div>
+                </div>
+
+                <div class="form-row" style="margin-top: 15px;">
+                    <div class="form-field">
+                        <label for="expiry">Tháng/Năm hết hạn *</label>
+                        <input type="text" id="expiry" placeholder="MM/YY">
+                        <div class="error-message" id="err-expiry"></div>
+                    </div>
+                    <div class="form-field">
+                        <label for="cvv">CSC/CVV *</label>
+                        <div class="input-group">
+                            <input type="text" id="cvv" placeholder="123">
+                            <span class="input-icon">ⓘ</span>
+                        </div>
+                        <div class="error-message" id="err-cvv"></div>
+                    </div>
+                </div>
+
+                <div class="form-field" style="margin-top: 15px;">
+                    <label for="cardHolder">Tên in trên thẻ (không dấu) *</label>
+                    <input type="text" id="cardHolder" placeholder="Nhap ten chu the">
+                    <div class="error-message" id="err-cardHolder"></div>
+                </div>
+
+                <div class="form-row" style="margin-top: 15px;">
+                    <div class="form-field">
+                        <label for="email">Email *</label>
+                        <div class="input-group">
+                            <input type="email" id="email" placeholder="name@email.com">
+                            <span class="input-icon"></span>
+                        </div>
+                        <div class="error-message" id="err-email"></div>
+                    </div>
+                    <div class="form-field" style="padding-top: 25px;">
+                        <div class="checkbox-row">
+                            <input type="checkbox" id="noEmail">
+                            <label for="noEmail" class="checkbox-label" style="margin-bottom: 0;">Không sử dụng email</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checkbox-row" style="margin-top: 10px;">
+                    <input type="checkbox" id="terms" checked>
+                    <label for="terms" class="checkbox-label">Tôi đã đọc, hiểu rõ và đồng ý với <a href="#">Chính sách bảo vệ và xử lý dữ liệu cá nhân</a> của OnePay</label>
+                </div>
+
+                <div class="guidance">
+                    <a href="#">Hướng dẫn nhập</a>
+                </div>
+
+                <div class="submit-area">
+                    <button type="submit" id="submitPayment" class="submit-button">Xác nhận thanh toán</button>
+                    <a href="http://localhost:56486/Home/Pay" class="cancel-button">Hủy giao dịch</a>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="order-summary-sidebar">
+            <div class="logo">
+                <img src="~/Content/Images/logo-color.png" alt="Supersports Logo">
+                <div class="order-timer">25:55</div>
+            </div>
+
+            <div class="card-mockup-container">
+                <div class="card-mockup">
+                    <div class="chip"></div>
+                    <div class="wave-icon">((•))</div>
+                    <p class="card-number" id="mockupCardNumber">XXXX XXXX XXXX 1234</p>
+                    <p class="expiry">Tên Chủ Thẻ</p>
+                </div>
+            </div>
+
+            <div class="order-details">
+                <p class="merchant">Đơn vị chấp nhận thanh toán</p>
+                <p class="merchant" style="margin-top: 0; margin-bottom: 15px;">**SUPERSPORTS**</p>
+
+                <p style="margin-bottom: 15px;">
+                    <span class="order-code-label">Mã đơn hàng</span>
+                    <span class="order-code-value">rMtriZL1600eKIA0yZ6jWFHxT</span>
+                </p>
+            </div>
+
+            <div class="order-amount-container">
+                <p>Số tiền thanh toán</p>
+                <p><span class="amount" id="mockupAmount">3,377,000 VND</span></p>
+            </div>
+
+            <div class="cancel-order">
+                <a href="http://localhost:56486/Home/Pay">Hủy giao dịch</a>
+            </div>
+
+        </div>
+    </main>
+
+    <div class="powered-by">
+        Giải pháp thanh toán được cung cấp bởi <span>OnePay</span>
+    </div>
+
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="status-icon">✅</div>
+            <h2>Thanh toán thành công!</h2>
+            <p>Giao dịch của bạn đã được xử lý. Bạn sẽ sớm được chuyển về trang chủ.</p>
+            <button id="modalCloseButton" class="modal-close">Quay lại trang web</button>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('cardForm');
+        const submitButton = document.getElementById('submitPayment');
+        const modal = document.getElementById('successModal');
+        const modalCloseButton = document.getElementById('modalCloseButton');
+        const inputs = [
+
+
+        ];
+
+        // Function để kiểm tra trạng thái form và bật/tắt nút
+        function updateSubmitButtonState() {
+            let allFilled = true;
+            inputs.forEach(item => {
+                const input = document.getElementById(item.id);
+                // Bỏ qua email nếu checkbox "Không sử dụng email" được chọn
+                if (item.id === 'email' && document.getElementById('noEmail').checked) {
+                    return;
+                }
+                if (input && input.value.trim() === '') {
+                    allFilled = false;
+                }
+            });
+
+            if (allFilled) {
+                submitButton.classList.add('active');
+            } else {
+                submitButton.classList.remove('active');
+            }
+        }
+
+        // Event listener cho tất cả các trường input để cập nhật trạng thái nút
+        inputs.forEach(item => {
+            const input = document.getElementById(item.id);
+            if (input) {
+                input.addEventListener('input', updateSubmitButtonState);
+            }
+        });
+        document.getElementById('noEmail').addEventListener('change', updateSubmitButtonState);
+
+
+        // Validation Logic
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            let formValid = true;
+
+            inputs.forEach(item => {
+                const input = document.getElementById(item.id);
+                const errorDiv = document.getElementById(`err-${item.id}`);
+                const isEmailField = item.id === 'email';
+                const isEmailDisabled = isEmailField && document.getElementById('noEmail').checked;
+
+                input.classList.remove('input-error');
+                errorDiv.textContent = '';
+
+                if (input.value.trim() === '' && !isEmailDisabled) {
+                    errorDiv.textContent = 'Trường này là bắt buộc.';
+                    input.classList.add('input-error');
+                    formValid = false;
+                } else if (input.value.trim() !== '' && !item.regex.test(input.value.trim()) && !isEmailDisabled) {
+                    errorDiv.textContent = item.msg;
+                    input.classList.add('input-error');
+                    formValid = false;
+                }
+            });
+
+            if (formValid) {
+                // Hiển thị pop-up thành công
+                modal.style.display = 'block';
+            }
+        });
+
+        // Modal Close Logic
+        modalCloseButton.onclick = function () {
+            modal.style.display = 'none';
+            // Giả lập chuyển hướng về trang chủ sau khi thanh toán thành công
+            // window.location.href = "http://localhost:56486/Home/Home";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Initial state update
+        updateSubmitButtonState();
+    </script>
+
+</body>
+</html>

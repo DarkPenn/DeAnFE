@@ -1,0 +1,586 @@
+﻿@{
+    ViewBag.Title = "Pay";
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Supership Checkout</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* Sử dụng font hệ thống */
+            background: #f4f6f8; /* Nền xám nhạt */
+            margin: 0;
+            padding: 0;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            font-size: 14px;
+        }
+
+        /* ===== MAIN LAYOUT (Container chính) ===== */
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 40px; /* Khoảng cách giữa 2 cột */
+            padding: 20px 20px;
+            max-width: 1100px; /* Độ rộng tối đa của trang */
+            margin: 0 auto;
+            flex: 1;
+        }
+
+        /* ===== LEFT SECTION (Thông tin & Thanh toán) ===== */
+        .left-section {
+            flex: 1; /* Chiếm phần lớn diện tích */
+            background: #fff;
+            padding: 0px 0px; /* Cắt padding để giống ảnh hơn */
+            border-radius: 4px; /* Bo góc nhẹ */
+        }
+
+            .left-section h3 {
+                font-size: 18px;
+                font-weight: 500;
+                margin-top: 30px;
+                margin-bottom: 10px;
+            }
+
+        .breadcrumb {
+            font-size: 12px;
+            margin-bottom: 20px;
+            color: #999;
+        }
+
+            .breadcrumb a {
+                color: #007bff;
+                text-decoration: none;
+            }
+
+            .breadcrumb strong {
+                color: #333;
+                font-weight: 600;
+            }
+
+        .info {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            background: #fff;
+            margin-bottom: 20px;
+        }
+
+        .payment-note {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        /* Payment Options Styling */
+        .payment-option, .payment-sub-option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            background: #fff;
+            position: relative;
+            transition: border-color 0.2s;
+        }
+
+            .payment-option:hover {
+                border-color: #007bff;
+            }
+
+            .payment-option input[type="radio"], .payment-sub-option input[type="radio"] {
+                margin-right: 15px;
+                accent-color: #002b5c;
+            }
+
+            .payment-option .payment-name {
+                font-weight: 500;
+                flex-grow: 1;
+            }
+
+        .card-logos, .card-logos-small {
+            display: flex;
+            align-items: center;
+        }
+
+            .card-logos img, .card-logos-small img {
+                height: 18px; /* Kích thước logo thẻ */
+                margin-left: 5px;
+            }
+
+        .one-pay-gateway {
+            flex-direction: column;
+            align-items: flex-start;
+            padding-bottom: 0;
+        }
+
+            .one-pay-gateway .payment-details {
+                display: flex;
+                width: 100%;
+                align-items: center;
+            }
+
+        .onepay-detail-text {
+            font-size: 12px;
+            color: #666;
+            padding: 10px 0;
+            margin-top: 10px;
+            border-top: 1px dashed #eee;
+            width: 100%;
+        }
+
+        .payment-sub-option {
+            margin-left: 30px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 0;
+            background: #fafafa;
+            font-size: 13px;
+        }
+
+        /* Terms & Actions */
+        .terms-agreement {
+            margin-top: 20px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+        }
+
+            .terms-agreement input {
+                margin-right: 10px;
+            }
+
+            .terms-agreement a {
+                color: #007bff;
+                text-decoration: none;
+            }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            margin-bottom: 40px;
+        }
+
+        .back-link {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .pay-button {
+            padding: 12px 25px;
+            background: #002b5c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .footer-links a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 12px;
+            margin-right: 5px;
+        }
+
+        /* ===== RIGHT SECTION (Đơn hàng) ===== */
+        .right-section {
+            width: 400px; /* Cố định độ rộng để khớp với ảnh */
+            background: #fff;
+            padding: 20px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+            .right-section h3 {
+                font-size: 18px;
+                font-weight: 600;
+                margin-top: 0;
+                margin-bottom: 20px;
+            }
+
+        .product {
+            display: flex;
+            align-items: flex-start;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .product-image-container {
+            position: relative;
+            margin-right: 15px;
+        }
+
+        .product img {
+            width: 60px;
+            height: 60px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .quantity-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #333;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        .product-info {
+            flex: 1;
+            line-height: 1.3;
+            font-size: 13px;
+        }
+
+            .product-info p {
+                margin: 0;
+            }
+
+        .product-name {
+            font-weight: 500;
+            margin-bottom: 2px !important;
+        }
+
+        .product-variant {
+            color: #999;
+        }
+
+        .product-price {
+            font-weight: 500;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        /* Coupon Section */
+        .coupon-section {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+            .coupon-section input {
+                flex-grow: 1;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 4px 0 0 4px;
+                font-size: 14px;
+            }
+
+            .coupon-section button {
+                padding: 10px 15px;
+                border: 1px solid #ddd;
+                border-left: none;
+                background: #f8f9fa;
+                border-radius: 0 4px 4px 0;
+                cursor: pointer;
+                font-size: 14px;
+                color: #333;
+            }
+
+        /* Summary Lines */
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+            .summary-line .amount {
+                font-weight: 500;
+            }
+
+        .free-ship {
+            color: green;
+            font-weight: 600 !important;
+        }
+
+        /* Total Section */
+        .total-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+            margin-top: 15px;
+        }
+
+        .total-label {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .total-amount-container {
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .vnd-label {
+            font-size: 12px;
+            margin-right: 5px;
+            color: #999;
+        }
+
+        .total-final-amount {
+            font-size: 20px;
+            font-weight: 700;
+            color: #002b5c;
+        }
+
+        /* Helper for image placeholders (not in original file, but required for the example) */
+        img[alt="Sản phẩm"], .card-logos img, .card-logos-small img {
+            background-color: #f0f0f0; /* Giả định rằng không có ảnh, để tạo màu nền */
+        }
+    </style>
+</head>
+<body>
+
+
+
+    <!-- Checkout -->
+    <main>
+        <div class="left-section">
+
+            <div class="breadcrumb">
+                <a href="#">Giỏ hàng</a> &gt; <a href="#">Thông tin</a> &gt; <a href="#">Vận chuyển</a> &gt; <strong>Thanh toán</strong>
+            </div>
+
+            <h3>Liên hệ</h3>
+            <div class="info" id="infoSection">
+            </div>
+
+            <h3>Thanh toán</h3>
+            <p class="payment-note">Địa chỉ thanh toán của phương thức thanh toán phải khớp với địa chỉ giao hàng. Toàn bộ các giao dịch được bảo mật và mã hóa.</p>
+
+            <div class="payment-method">
+                <div class="payment-options">
+                    <label class="payment-option one-pay-gateway">
+                        <input type="radio" name="payment" value="onepay" checked>
+                        <div class="payment-details">
+                            <span class="payment-name">Cổng OnePAY - Thẻ ATM/QR/MoMo</span>
+                            <div class="card-logos">
+                                <img src="~/Content/Images/VISA.jfif" alt="VISA" />
+                                <img src="~/Content/Images/mastercard.jpg" alt="MasterCard" />
+                                <img src="~/Content/Images/JCB.jpg" alt="JCB" />
+                                <img src="~/Content/Images/MoMo.jpg" alt="MoMo" />
+                                <span>+2</span>
+
+                            </div>
+
+                        </div>
+                        <div class="onepay-detail-text">Sau khi nhấp vào "Thanh toán ngay", bạn sẽ được chuyển hướng đến Cổng OnePAY - Thẻ ATM/QR/MoMo để hoàn tất việc mua hàng một cách an toàn.</div>
+                    </label>
+
+                    <label class="payment-sub-option">
+                        <input type="radio" name="installment" disabled>
+                        <span class="payment-name">Trả góp 0% lãi suất qua thẻ tín dụng</span>
+                        <div class="card-logos-small">
+                            <img src="~/Content/Images/VISA.jfif" alt="VISA" />
+                            <img src="~/Content/Images/mastercard.jpg" alt="MasterCard" />
+                            <img src="~/Content/Images/JCB.jpg" alt="JCB" />
+                            <img src="~/Content/Images/AMEX.jpg" alt="Amex" />
+                        </div>
+                    </label>
+
+                    <label class="payment-sub-option">
+                        <input type="radio" name="wallet" disabled>
+                        <span class="payment-name">Ví ZaloPay</span>
+                        <div class="card-logos-small">
+                            <img src="~/Content/Images/Zalo.jpg" alt="ZaloPay" />
+                            <img src="~/Content/Images/mastercard.jpg" alt="MasterCard" />
+                            <img src="~/Content/Images/VISA.jfif" alt="VISA" />
+                            <span>+2</span>
+                        </div>
+                    </label>
+
+                    <label class="payment-sub-option">
+                        <input type="radio" name="momo-onepay" disabled>
+                        <span class="payment-name">Thanh toán MoMo qua OnePay</span>
+                        <div class="card-logos-small">
+                            <img src="~/Content/Images/MoMo.jpg" alt="MoMo" />
+                            <img src="~/Content/Images/Onepay.jpg" alt="OnePay" />
+                        </div>
+                    </label>
+
+                    <label class="payment-option">
+                        <input type="radio" name="payment" value="cod">
+                        <span class="payment-name">Thanh toán khi nhận hàng (COD)</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="terms-agreement">
+                <input type="checkbox" id="terms" checked>
+                <label for="terms">Tôi đồng ý với <a href="#">Điều khoản và Chính sách</a> quy định bởi Supersports*</label>
+            </div>
+
+            <div class="action-buttons">
+                <a href="#" class="back-link">&lt; Quay trở lại vận chuyển</a>
+                <a href="@Url.Action("Payment_Confirm","Home")"><p id="confirmBtn" class="pay-button">Thanh toán ngay</p></a>
+</div>
+
+            <div class="footer-links">
+                <a href="#">Chính sách đổi trả</a> | <a href="#">Chính sách vận chuyển</a> | <a href="#">Chính sách quyền riêng tư</a> | <a href="#">Điều khoản dịch vụ</a>
+            </div>
+
+        </div>
+        <div class="right-section">
+            <h3>Đơn hàng</h3>
+            <div class="product-list">
+                <div class="product">
+                    <div class="product-image-container">
+                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/1f6cba9a-f23a-4b1e-8a09-0c75e3b6509a/pegasus-plus-mens-road-running-shoes-qZlJw5.png" alt="Sản phẩm">
+                        <span class="quantity-badge">1</span>
+                    </div>
+                    <div class="product-info">
+                        <p class="product-name">Giày Chạy Bộ Nam Nike Pegasus Plus - Đen</p>
+                        <p class="product-variant">ĐEN / US 7.5</p>
+                    </div>
+                    <p class="product-price">5.809.000 ₫</p>
+                </div>
+            </div>
+
+            <div class="coupon-section">
+                <input type="text" placeholder="Nhập mã khuyến mãi" />
+                <button>Áp dụng</button>
+            </div>
+
+            <div class="summary-line">
+                <span>Tổng tiền hàng</span>
+                <span class="amount">5.809.000 ₫</span>
+            </div>
+            <div class="summary-line">
+                <span>Phí vận chuyển</span>
+                <span class="amount free-ship">MIỄN PHÍ</span>
+            </div>
+
+            <div class="total-section">
+                <span class="total-label">Tổng</span>
+                <div class="total-amount-container">
+                    <span class="vnd-label">VND</span>
+                    <span class="total-final-amount">5.809.000 ₫</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <!-- ==== JAVASCRIPT ==== -->
+    <script>
+        // Lấy thông tin đã lưu
+        const info = JSON.parse(localStorage.getItem("shippingInfo"));
+        const infoDiv = document.getElementById("infoSection");
+
+        // --- LOGIC HIỂN THỊ THÔNG TIN GIAO HÀNG (GIỮ NGUYÊN) ---
+        if (!info) {
+            infoDiv.innerHTML = `
+            <p style="color: red; font-weight: 500;">Không có thông tin giao hàng.</p>
+            <p><a href='http://localhost:56486/Home/Oder' class="change-link" style="color:#007bff;">Quay lại trang thông tin</a></p>
+        `;
+        } else {
+            const contactEmail = info.email || 'N/A';
+            const shippingAddressLine = info.address || 'N/A';
+            const shippingCityDetail = info.city || 'N/A';
+            const shippingMethod = info.shipping || 'Đang cập nhật';
+
+            infoDiv.innerHTML = `
+            <div class="info-row">
+                <span class="info-label">Liên hệ</span>
+                <span class="info-value">${contactEmail}</span>
+                <a href="http://localhost:56486/Home/Oder" class="change-link">Thay đổi</a>
+            </div>
+            <hr style="margin: 10px 0; border: none; border-top: 1px solid #eee;">
+            <div class="info-row">
+                <span class="info-label">Vận chuyển tới</span>
+                <span class="info-value">${shippingAddressLine}, ${shippingCityDetail}</span>
+                <a href="http://localhost:56486/Home/Oder" class="change-link">Thay đổi</a>
+            </div>
+            <hr style="margin: 10px 0; border: none; border-top: 1px solid #eee;">
+            <div class="info-row">
+                <span class="info-label">Phương thức vận chuyển</span>
+                <span class="info-value-shipping">${shippingMethod}</span>
+                <span style="width: 50px;"></span>
+            </div>
+        `;
+        }
+
+        // Thêm style cho phần info (GIỮ NGUYÊN)
+        const style = document.createElement('style');
+        style.innerHTML = `
+        .info-row { display: flex; justify-content: space-between; align-items: center; margin: 5px 0; }
+        .info-label { width: 150px; color: #666; }
+        .info-value, .info-value-shipping { flex-grow: 1; text-align: left; font-weight: 500; }
+        .info-value-shipping { font-weight: 600; color: #333; }
+        .change-link { color: #007bff; text-decoration: none; font-size: 13px; width: 50px; text-align: right;}
+`;
+        document.head.appendChild(style);
+
+        // --- LOGIC THANH TOÁN MỚI ---
+        document.getElementById("confirmBtn").addEventListener("click", () => {
+            const selectedPayment = document.querySelector('input[name="payment"]:checked');
+            let paymentUrl = '';
+
+            if (!selectedPayment) {
+                alert("Vui lòng chọn phương thức thanh toán.");
+                return;
+            }
+
+            switch (selectedPayment.value) {
+                case 'onepay':
+                    paymentUrl = 'http://localhost:56486/Home/End';
+                    break;
+                case 'installment':
+                    paymentUrl = 'http://localhost:56486/Home/End';
+                    break;
+                case 'zalopay':
+                    paymentUrl = 'http://localhost:56486/Home/End';
+                    break;
+                case 'momo-onepay':
+                    paymentUrl = 'http://localhost:56486/Home/End';
+                    break;
+                case 'cod':
+                    alert("✅ Đơn hàng đã được đặt thành công và sẽ thanh toán khi nhận hàng!");
+                    paymentUrl = "http://localhost:56486/Home/Success";
+                    break;
+                default:
+                    alert("Phương thức thanh toán không hợp lệ.");
+                    return;
+            }
+
+            if (selectedPayment.value !== 'cod') {
+                window.location.href = paymentUrl;
+            } else {
+                window.location.href = paymentUrl;
+            }
+
+            // Xóa thông tin giao hàng sau khi đặt hàng/chuyển hướng thành công
+            localStorage.removeItem("shippingInfo");
+        });
+    </script>
+
+
+</body>
+</html>

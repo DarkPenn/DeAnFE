@@ -20,7 +20,19 @@ namespace TestDeAn.Controllers
         {
             return View();
         }
-        public ActionResult Payment()
+        public ActionResult DeliverLocate()
+        {
+            return View();
+        }
+        public ActionResult OrderHistory()
+        {
+            return View();
+        }
+        public ActionResult Payment_Confirm()
+        {
+            return View();
+        }
+        public ActionResult Payment_List()
         {
             return View();
         }
