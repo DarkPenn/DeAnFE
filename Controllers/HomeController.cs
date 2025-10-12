@@ -16,6 +16,10 @@ namespace TestDeAn.Controllers
         {
             return View();
         }
+        public ActionResult DetailProduct()
+        {
+            return View();
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

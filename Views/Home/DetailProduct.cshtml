@@ -1,0 +1,275 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sản phẩm - Demo</title>
+    <style>
+        body {
+            font-family: "Open Sans", sans-serif;
+            background: #fff;
+            color: #111;
+            margin: 0;
+            padding: 0;
+        }
+
+        .product-page {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+            padding: 40px;
+        }
+
+        /* Gallery */
+        .gallery {
+            width: 50%;
+        }
+
+        .main-image img {
+            width: 100%;
+            border-radius: 6px;
+            border: 1px solid #eee;
+        }
+
+        .thumbnail-list {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+            .thumbnail-list img {
+                width: 80px;
+                border: 1px solid #ddd;
+                cursor: pointer;
+                border-radius: 6px;
+            }
+
+                .thumbnail-list img:hover {
+                    border-color: #111;
+                }
+
+        /* Info box */
+        .product-info {
+
+            width: 50%;
+        }
+
+        .brand {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .product-info h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .meta {
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+            .meta a {
+                color: #0066c0;
+                text-decoration: none;
+            }
+
+                .meta a:hover {
+                    text-decoration: underline;
+                }
+
+        .sku {
+            margin-left: 10px;
+            color: #555;
+        }
+
+        .price {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #111;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #777;
+            font-size: 16px;
+            margin-left: 8px;
+        }
+
+        .colors, .size-options {
+            margin: 20px 0;
+        }
+
+            .colors h4, .size-options h4 {
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
+
+        .color-list {
+            display: flex;
+            gap: 12px;
+        }
+
+        .color-item {
+            border: 2px solid transparent;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+            .color-item img {
+                width: 80px;
+                display: block;
+                border-radius: 4px;
+            }
+
+            .color-item.active {
+                border-color: #000;
+            }
+
+        .size-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .size {
+            padding: 12px 18px;
+            border: 1px solid #111;
+            background: #fff;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+            .size:hover {
+                background: #f8f8f8;
+            }
+
+            .size.disabled {
+                border: 1px solid #ccc;
+                color: #999;
+                text-decoration: line-through;
+                cursor: not-allowed;
+                background: #f9f9f9;
+            }
+
+        .buy-actions {
+            margin-top: 25px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+            .btn.buy {
+                background: #111;
+                color: #fff;
+                border: 1px solid #111;
+            }
+
+            .btn.add {
+                background: #fff;
+                color: #111;
+                border: 1px solid #111;
+            }
+
+        .details {
+            margin-top: 30px;
+        }
+
+            .details h3 {
+                font-size: 18px;
+                margin-bottom: 10px;
+            }
+
+            .details ul {
+                padding-left: 18px;
+                line-height: 1.6;
+                color: #444;
+            }
+    </style>
+</head>
+<body>
+    <div class="product-page">
+        <!-- Left: Gallery -->
+        <div class="gallery">
+            <div class="main-image">
+                <img id="mainImage" src="~/Content/Images/SP1.png" alt="Sản phẩm">
+            </div>
+            <div class="thumbnail-list">
+                <img src="~/Content/Images/SP1.png" onclick="changeImage(this)">
+                <img src="~/Content/Images/SP1.png" onclick="changeImage(this)">
+                <img src="~/Content/Images/SP1.png" onclick="changeImage(this)">
+            </div>
+        </div>
+
+        <!-- Right: Product Info -->
+        <div class="product-info">
+            <div class="brand">HOKA</div>
+            <h2>Giày Chạy Bộ Nữ HOKA Speedgoat 6 - Tím</h2>
+            <div class="meta">
+                <a href="#">GIÀY CHẠY BỘ</a>
+                <span class="sku">SKU 1147811-SLWS</span>
+            </div>
+
+            <div class="price">
+                3.999.000₫ <span class="old-price">4.200.000₫</span>
+            </div>
+
+            <div class="colors">
+                <h4>Màu Sắc: Tím (Starlight)</h4>
+                <div class="color-list">
+                    <div class="color-item active"><img src="images/h1.jpg"></div>
+                    <div class="color-item"><img src="images/h2.jpg"></div>
+                    <div class="color-item"><img src="images/h3.jpg"></div>
+                </div>
+            </div>
+
+            <div class="size-options">
+                <h4>Kích Thước</h4>
+                <div class="size-list">
+                    <button class="size">US 6</button>
+                    <button class="size disabled">US 6.5</button>
+                    <button class="size">US 7</button>
+                    <button class="size disabled">US 7.5</button>
+                    <button class="size disabled">US 8</button>
+                    <button class="size">US 8.5</button>
+                    <button class="size">US 9</button>
+                </div>
+            </div>
+
+            <div class="buy-actions">
+                <button class="btn buy">Mua ngay</button>
+                <button class="btn add">Thêm vào giỏ</button>
+            </div>
+
+            <div class="details">
+                <h3>Mô tả sản phẩm</h3>
+                <ul>
+                    <li>Thiết kế mới nhẹ hơn, thoáng khí.</li>
+                    <li>Đế Vibram MegaGrip tăng độ bám.</li>
+                    <li>Thích hợp chạy đường trail dài.</li>
+                    <li>Phù hợp cho mọi loại địa hình.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function changeImage(img) {
+            document.getElementById("mainImage").src = img.src;
+        }
+    </script>
+</body>
+</html>
