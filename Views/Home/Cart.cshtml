@@ -1,0 +1,240 @@
+﻿
+
+@{
+    ViewBag.Title = "Giỏ hàng của bạn - Supersports Vietnam ";
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ hàng - SuperSports</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #e53935;
+            --secondary: #1e3a8a;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --success: #28a745;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark);
+            line-height: 1.6;
+            padding:0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .empty-cart {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 60px 40px;
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .empty-cart-icon {
+            font-size: 80px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .empty-cart h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .empty-cart p {
+            color: var(--gray);
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+
+
+
+        .divider {
+            height: 1px;
+            background: #eee;
+            margin: 40px 0;
+        }
+
+
+        .recommendations {
+            margin: 40px 0;
+        }
+
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 25px;
+            color: var(--secondary);
+            text-align: center;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+            .product-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-name {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: var(--dark);
+            height: 40px;
+            overflow: hidden;
+        }
+
+        .product-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .size-options {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .size-option {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+            .size-option:hover {
+                border-color: var(--primary);
+            }
+
+            .size-option.selected {
+                background: var(--primary);
+                color: white;
+                border-color: var(--primary);
+            }
+
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 10px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+            .add-to-cart-btn:hover {
+                background: #152c6e;
+            }
+
+        media (max-width: 992px) {
+            .products-grid
+            {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        media (max-width: 576px) {
+            .products-grid
+            {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .empty-cart {
+            padding: 40px 20px;
+        }
+
+        body {
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <div class="breadcrumb">
+            <a href="#">Trang chủ</a> > <a href="#">Giỏ hàng</a>
+        </div>
+
+        <section class="empty-cart">
+            <h2>Giỏ hàng trống!</h2>
+            <h7>Tiếp tục mua sắm</h7>
+        </section>
+    </main>
+
+    <script>
+
+        document.querySelectorAll('.size-option').forEach(option => {
+            option.addEventListener('click', function () {
+
+                this.parentElement.querySelectorAll('.size-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+
+                this.classList.add('selected');
+            });
+        });
+
+
+        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const productCard = this.closest('.product-card');
+                const productName = productCard.querySelector('.product-name').textContent;
+                const selectedSize = productCard.querySelector('.size-option.selected').textContent;
+
+                alert(`Đã thêm "${productName}" (${selectedSize}) vào giỏ hàng!`);
+
+
+            });
+        });
+    </script>
+</body>
+</html>
+

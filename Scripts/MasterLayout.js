@@ -37,4 +37,4 @@
 
     showItem(index);
     startAutoSlide();
-        });
+});

@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <script src="/Scripts/MasterLayout.js" defer></script>
     @RenderSection("styles", required: false)   <!-- Cho phép trang con thêm CSS -->
+    @RenderSection("Scripts", required: false)
 </head>
 <body>
     <!-- HEADER -->
@@ -40,7 +41,7 @@
         </div> <!-- Main navigation --> 
             <div class="main-header"> 
                 <div class="logo"> 
-                    <img src="~/Content/Images/logo-color.png" alt="Supersports Logo"> 
+                    <a href="@Url.Action("Home","Home")"><img src="~/Content/Images/logo-color.png" alt="Supersports Logo"></a>
                 </div> 
                 <nav class="nav-menu"> 
                     <ul> 
@@ -83,10 +84,10 @@
                     <button> <span class="material-symbols-outlined">search</span> </button> 
                 </div> 
                 <div class="icons"> 
-                    <span class="material-symbols-outlined">person</span> 
-                    <span class="material-symbols-outlined">shopping_bag</span> 
+                    <span class="material-symbols-outlined"><a href="@Url.Action("Register_Login","Home")">person</a></span> 
+                    <span class="material-symbols-outlined"> <a href="@Url.Action("Cart","Home")">shopping_bag</a></span> 
                     <span class="material-symbols-outlined">location_on</span> 
-                    <span class="material-symbols-outlined">receipt_long</span> 
+                    <span class="material-symbols-outlined base">inventory_2</span>
                     <img class="flag" src="https://flagcdn.com/w40/vn.png" alt="Vietnam Flag">
                     <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span> 
                     <br /> 
