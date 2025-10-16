@@ -1,5 +1,4 @@
-﻿
-    document.addEventListener('DOMContentLoaded', function () {
+﻿document.addEventListener('DOMContentLoaded', function () {
             const items = document.querySelectorAll('.topbar-item');
     const prevBtn = document.querySelector('.topbar-btn.prev');
     const nextBtn = document.querySelector('.topbar-btn.next');
