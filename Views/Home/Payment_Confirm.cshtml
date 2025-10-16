@@ -25,6 +25,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            padding:0;
         }
 
         /* Top Header */
@@ -44,7 +45,7 @@
             align-items: center;
             max-width: 1200px;
             width: 100%;
-            padding: 0 0px;
+            padding: 0;
             justify-content: flex-end;
         }
 
@@ -631,7 +632,7 @@
 
                 <div class="submit-area">
                     <button type="submit" id="submitPayment" class="submit-button">Xác nhận thanh toán</button>
-                    <a href="http://localhost:56486/Home/Pay" class="cancel-button">Hủy giao dịch</a>
+                    <a href="@Url.Action("Home","Home")" class="cancel-button">Hủy giao dịch</a>
                 </div>
 
             </form>
@@ -664,11 +665,11 @@
 
             <div class="order-amount-container">
                 <p>Số tiền thanh toán</p>
-                <p><span class="amount" id="mockupAmount">3,377,000 VND</span></p>
+                <p><span class="amount" id="mockupAmount">2,400,000 VND</span></p>
             </div>
 
             <div class="cancel-order">
-                <a href="http://localhost:56486/Home/Pay">Hủy giao dịch</a>
+                <a href="@Url.Action("Home","Home")">Hủy giao dịch</a>
             </div>
 
         </div>
@@ -683,7 +684,7 @@
             <div class="status-icon">✅</div>
             <h2>Thanh toán thành công!</h2>
             <p>Giao dịch của bạn đã được xử lý. Bạn sẽ sớm được chuyển về trang chủ.</p>
-            <button id="modalCloseButton" class="modal-close">Quay lại trang web</button>
+            <a href="@Url.Action("Home","Home")" id="modalCloseButton" class="modal-close">Quay lại trang web</a>
         </div>
     </div>
 

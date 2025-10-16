@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thanh toán</title>
     <style>
-        /* Reset and Base Styles */
         * {
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -32,17 +31,17 @@
 
         /* Global Layout */
         .checkout-container {
-            display: flex; /* Dùng flexbox thay cho grid để dễ quản lý */
+            display: flex; 
             justify-content: center;
             gap: 40px;
             max-width: 1100px;
-            margin: 0 auto; /* Đưa container chính lên đầu */
+            margin: 0 auto; 
             padding: 20px 20px 40px 20px;
         }
 
         /* LEFT SECTION (Shipping Info) */
         .checkout-left {
-            flex: 1; /* Chiếm phần lớn diện tích */
+            flex: 1; 
             max-width: 550px;
         }
 
@@ -64,7 +63,6 @@
                 margin: 0;
             }
 
-        /* Breadcrumb */
         .breadcrumb {
             font-size: 13px;
             margin-bottom: 25px;
@@ -81,7 +79,6 @@
                 font-weight: 500;
             }
 
-        /* Form Styling */
         .form-field-group {
             display: flex;
             gap: 10px;
@@ -114,7 +111,6 @@
                     border-color: #007bff;
                 }
 
-        /* Specific Field Adjustments (Email/Contact/Address) */
         #email-input-container {
             margin-bottom: 15px;
         }
@@ -183,13 +179,11 @@
                 background: #001f4d;
             }
 
-        /* RIGHT SECTION (Order Summary - Tái sử dụng CSS từ file Thanh Toán) */
         .checkout-right {
             width: 350px;
             background: #fff;
             padding: 20px;
             border-radius: 4px;
-            /* Giống như ảnh 1 và 2, sử dụng nền trắng */
         }
 
             .checkout-right h3 {
@@ -370,10 +364,10 @@
             <form id="checkoutForm" novalidate>
                 <div class="section-heading">
                     <h3>Thông tin liên lạc</h3>
-                    <a href="#" class="login-link">Đăng nhập</a>
+                    <a href="@Url.Action("Register_Login","Home")" class="login-link">Đăng nhập</a>
                 </div>
                 <div id="email-input-container">
-                    <input type="email" id="email" placeholder="example@gmail.com" value="chaungocdien0460@gmail.com">
+                    <input type="email" id="email" placeholder="example@gmail.com" value="">
                 </div>
                 <div class="checkbox-container">
                     <input type="checkbox" id="subscribe" checked>
@@ -393,18 +387,18 @@
 
                 <div class="form-field-group">
                     <div>
-                        <input type="text" id="name" placeholder="Tên" value="ad" class="error-border">
+                        <input type="text" id="name" placeholder="Tên" value="" class="error-border">
                         <div class="error-text" id="err-name"></div>
                     </div>
                     <div>
-                        <input type="text" id="lastName" placeholder="Họ" value="add">
+                        <input type="text" id="lastName" placeholder="Họ" value="">
                         <div class="error-text" id="err-lastName"></div>
                     </div>
                 </div>
 
                 <div class="form-field-group">
                     <div>
-                        <input type="text" id="address" placeholder="Địa chỉ nhận hàng (Số nhà, đường phố, hẻm, Căn hộ...)" value="da" class="error-border">
+                        <input type="text" id="address" placeholder="Địa chỉ nhận hàng (Số nhà, đường phố, hẻm, Căn hộ...)" value="" class="error-border">
                         <div class="error-text" id="err-address">Trường này là bắt buộc</div>
                     </div>
                 </div>
@@ -460,7 +454,7 @@
                     <div>
                         <label for="phone">Điện thoại</label>
                         <div class="phone-input-group">
-                            <input type="text" id="phone" placeholder="09xxxxxxx" value="09xxxxxxx">
+                            <input type="text" id="phone" placeholder="09xxxxxxx" value="">
                             <span class="phone-info-icon">ⓘ</span>
                         </div>
                         <div class="error-text" id="err-phone"></div>
@@ -492,10 +486,10 @@
                         <span class="quantity-badge">1</span>
                     </div>
                     <div class="product-info">
-                        <p class="product-name">Giày Chạy Bộ Nam Nike Pegasus Plus - Đen</p>
+                        <p class="product-name">Giày Đá Bóng Dành Cho Sân Cỏ Nhân Tạo Nam Adidas F50 League Tf</p>
                         <p class="product-variant">ĐEN / US 7.5</p>
                     </div>
-                    <p class="product-price">5.809.000 ₫</p>
+                    <p class="product-price">2.400.000 ₫</p>
                 </div>
             </div>
 
@@ -506,7 +500,7 @@
 
             <div class="summary-line">
                 <span>Tổng tiền hàng</span>
-                <span class="amount">5.809.000 ₫</span>
+                <span class="amount">2.400.000 ₫</span>
             </div>
             <div class="summary-line">
                 <span>Phí vận chuyển <span class="shipping-info-icon">ⓘ</span></span>
@@ -517,7 +511,7 @@
                 <span class="total-label">Tổng thanh toán</span>
                 <div class="total-amount-container">
                     <span class="vnd-label">VND</span>
-                    <span class="total-final-amount">5.809.000 ₫</span>
+                    <span class="total-final-amount">2.400.000 ₫</span>
                 </div>
             </div>
         </section>

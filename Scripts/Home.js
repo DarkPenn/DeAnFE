@@ -2,7 +2,7 @@
     const buttons = document.querySelectorAll(".brand-btn");
     const sections = document.querySelectorAll(".brand-section");
 
-    // 🌟 Chuyển giữa các tab (nút lựa chọn)
+    // Chuyển giữa các tab (nút lựa chọn)
     buttons.forEach(button => {
         button.addEventListener("click", () => {
             buttons.forEach(btn => btn.classList.remove("active"));
@@ -13,7 +13,7 @@
         });
     });
 
-    // 🌟 Kéo slide bằng chuột
+    // Kéo slide bằng chuột
     const sliders = document.querySelectorAll(".slider-track");
     sliders.forEach(track => {
         let isDown = false;
@@ -39,14 +39,13 @@
     });
 });
 
-/**
- * Hàm điều khiển khi bấm nút ❮ ❯
- * Mỗi lần trượt đúng 3 hình (~960px)
- */
+/*
+  Hàm điều khiển khi bấm nút ❮ ❯
+*/
 function moveSlide(sectionId, direction) {
     const section = document.getElementById(sectionId);
     const track = section.querySelector(".slider-track");
-    const imageWidth = 320; // mỗi ảnh rộng khoảng 300px + margin
+    const imageWidth = 320; 
     const imagesPerView = 3;
     const scrollAmount = imageWidth * imagesPerView;
 
