@@ -76,6 +76,16 @@ body {
         height: auto;
     }
 
+.productlist-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding-top: 30px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 20px;
+}
+
 .brand-container {
     display: flex;
     justify-content: center;
