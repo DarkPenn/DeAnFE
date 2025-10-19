@@ -203,43 +203,83 @@
 </head>
 <body>
 
-    <main class="container">
-        <div class="breadcrumb">
-            <a href="#">Trang chủ</a> > <a href="#">Giỏ hàng</a>
-        </div>
-
-        <section class="empty-cart">
-            <h2>Giỏ hàng trống!</h2>
-            <h7>Tiếp tục mua sắm</h7>
-        </section>
-    </main>
+    <div class="container">
+        <h2>🛒 Giỏ hàng của bạn</h2>
+        <div id="cartItems"></div>
+        <hr>
+        <div id="cartTotal"></div>
+    </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            let container = document.getElementById("cartItems");
+            let totalBox = document.getElementById("cartTotal");
 
-        document.querySelectorAll('.size-option').forEach(option => {
-            option.addEventListener('click', function () {
+            // Hàm render giỏ hàng
+            function renderCart() {
+                if (!cart || cart.length === 0) {
+                    container.innerHTML = "<p style='color:gray'>🛒 Giỏ hàng trống!</p>";
+                    totalBox.innerHTML = "";
+                    return;
+                }
 
-                this.parentElement.querySelectorAll('.size-option').forEach(opt => {
-                    opt.classList.remove('selected');
+                let html = "";
+                let total = 0;
+
+                cart.forEach((item, index) => {
+                    let subTotal = item.qty * item.price;
+                    total += subTotal;
+
+                    html += `
+                <div class="cart-item" style="display:flex;align-items:center;margin:10px 0;border-bottom:1px solid #ddd;padding:10px 0">
+                    <img src="${item.image}" width="80" style="margin-right:10px"/>
+                    <div style="flex:1">
+                        <strong>${item.name}</strong><br>
+                        Màu: ${item.color} - Size: ${item.size}<br>
+                        <div style="margin:5px 0">
+                            <button onclick="changeQty(${index}, -1)">➖</button>
+                            <span style="margin:0 10px">${item.qty}</span>
+                            <button onclick="changeQty(${index}, 1)">➕</button>
+                        </div>
+                        <div>
+                            Đơn giá: ${item.price.toLocaleString()} ₫<br>
+                            <b>Thành tiền: ${subTotal.toLocaleString()} ₫</b>
+                        </div>
+                    </div>
+                    <button onclick="removeItem(${index})" style="margin-left:10px">❌ Xoá</button>
+                </div>`;
                 });
 
-                this.classList.add('selected');
-            });
-        });
+                container.innerHTML = html;
+                totalBox.innerHTML = `<h3>Tổng cộng: ${total.toLocaleString()} ₫</h3>`;
+            }
 
+            // Hàm xoá sản phẩm
+            window.removeItem = function (index) {
+                cart.splice(index, 1);
+                localStorage.setItem("cart", JSON.stringify(cart));
+                renderCart();
+            };
 
-        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-            button.addEventListener('click', function () {
-                const productCard = this.closest('.product-card');
-                const productName = productCard.querySelector('.product-name').textContent;
-                const selectedSize = productCard.querySelector('.size-option.selected').textContent;
+            // Hàm tăng/giảm số lượng
+            window.changeQty = function (index, delta) {
+                cart[index].qty += delta;
+                if (cart[index].qty <= 0) {
+                    if (confirm("Bạn có muốn xoá sản phẩm này không?")) {
+                        cart.splice(index, 1);
+                    } else {
+                        cart[index].qty = 1;
+                    }
+                }
+                localStorage.setItem("cart", JSON.stringify(cart));
+                renderCart();
+            };
 
-                alert(`Đã thêm "${productName}" (${selectedSize}) vào giỏ hàng!`);
-
-
-            });
+            renderCart();
         });
     </script>
+
 </body>
 </html>
 
