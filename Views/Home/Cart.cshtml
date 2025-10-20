@@ -199,30 +199,231 @@
         body {
             padding: 0;
         }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #e53935;
+            --secondary: #1e3a8a;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --success: #28a745;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .empty-cart {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 60px 40px;
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .empty-cart-icon {
+            font-size: 80px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .empty-cart h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .empty-cart p {
+            color: var(--gray);
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+
+
+
+        .divider {
+            height: 1px;
+            background: #eee;
+            margin: 40px 0;
+        }
+
+
+        .recommendations {
+            margin: 40px 0;
+        }
+
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 25px;
+            color: var(--secondary);
+            text-align: center;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+            .product-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-name {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: var(--dark);
+            height: 40px;
+            overflow: hidden;
+        }
+
+        .product-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .size-options {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .size-option {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+            .size-option:hover {
+                border-color: var(--primary);
+            }
+
+            .size-option.selected {
+                background: var(--primary);
+                color: white;
+                border-color: var(--primary);
+            }
+
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 10px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+            .add-to-cart-btn:hover {
+                background: #152c6e;
+            }
+
+        media (max-width: 992px) {
+            .products-grid
+
+        {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        }
+
+        media (max-width: 576px) {
+            .products-grid
+
+        {
+            grid-template-columns: 1fr;
+        }
+
+        .empty-cart {
+            padding: 40px 20px;
+        }
+
+
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h2>🛒 Giỏ hàng của bạn</h2>
-        <div id="cartItems"></div>
-        <hr>
-        <div id="cartTotal"></div>
-    </div>
+    <main class="container">
+        <div class="breadcrumb">
+            <a href="#">Trang chủ</a> > <a href="#">Giỏ hàng</a>
+        </div>
+
+        <!-- Khung giỏ hàng trống -->
+        <section id="emptyCart" class="empty-cart" style="display:none">
+            <i class="fa-solid fa-cart-shopping empty-cart-icon"></i>
+            <h2>Giỏ hàng trống!</h2>
+            <p>Hãy tiếp tục mua sắm để tìm sản phẩm bạn yêu thích.</p>
+        </section>
+
+        <!-- Khung danh sách sản phẩm -->
+        <section id="cartSection" style="display:none">
+            <div id="cartItems"></div>
+            <div id="cartTotal" style="margin-top:20px;text-align:right"></div>
+        </section>
+    </main>
+
+
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             let cart = JSON.parse(localStorage.getItem("cart")) || [];
             let container = document.getElementById("cartItems");
             let totalBox = document.getElementById("cartTotal");
+            let emptyCart = document.getElementById("emptyCart");
+            let cartSection = document.getElementById("cartSection");
 
-            // Hàm render giỏ hàng
             function renderCart() {
                 if (!cart || cart.length === 0) {
-                    container.innerHTML = "<p style='color:gray'>🛒 Giỏ hàng trống!</p>";
-                    totalBox.innerHTML = "";
+                    emptyCart.style.display = "block";
+                    cartSection.style.display = "none";
                     return;
                 }
+
+                emptyCart.style.display = "none";
+                cartSection.style.display = "block";
 
                 let html = "";
                 let total = 0;
@@ -255,14 +456,14 @@
                 totalBox.innerHTML = `<h3>Tổng cộng: ${total.toLocaleString()} ₫</h3>`;
             }
 
-            // Hàm xoá sản phẩm
+            // Hàm xoá
             window.removeItem = function (index) {
                 cart.splice(index, 1);
                 localStorage.setItem("cart", JSON.stringify(cart));
                 renderCart();
             };
 
-            // Hàm tăng/giảm số lượng
+            // Hàm thay đổi số lượng
             window.changeQty = function (index, delta) {
                 cart[index].qty += delta;
                 if (cart[index].qty <= 0) {
@@ -278,6 +479,31 @@
 
             renderCart();
         });
+
+        document.querySelectorAll('.size-option').forEach(option => {
+            option.addEventListener('click', function () {
+
+                this.parentElement.querySelectorAll('.size-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+
+                this.classList.add('selected');
+            });
+        });
+
+
+        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const productCard = this.closest('.product-card');
+                const productName = productCard.querySelector('.product-name').textContent;
+                const selectedSize = productCard.querySelector('.size-option.selected').textContent;
+
+                alert(`Đã thêm "${productName}" (${selectedSize}) vào giỏ hàng!`);
+
+
+            });
+        });
+
     </script>
 
 </body>
