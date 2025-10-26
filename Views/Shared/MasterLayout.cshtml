@@ -24,84 +24,84 @@
             <div class="topbar-content"> 
                 <div class="topbar-item active"> 
                     10.10 - GIẢM ĐẾN 50% + VOUCHER ĐẾN 500K
-                    <a href="#" class="topbar-link">Xem ngay</a> 
+                    <a href="@Url.Action("Category","Home")" class="topbar-link">Xem ngay</a> 
                 </div> 
                 <div class="topbar-item"> 
                     10.10 - MUA 2 GIẢM 30%
-                    <a href="#" class="topbar-link">Xem ngay</a> 
+                    <a href="@Url.Action("Category","Home")" class="topbar-link">Xem ngay</a> 
                 </div> 
                 <div class="topbar-item"> 
                     10.10 - GIÁ ĐẶC BIỆT
-                    <a href="#" class="topbar-link">Xem ngay</a> 
+                    <a href="@Url.Action("Category","Home")" class="topbar-link">Xem ngay</a> 
                 </div> 
                 <div class="topbar-item"> 
                     SPEEDO - GIÁ ĐẶC BIỆT 
-                    <a href="#" class="topbar-link">Xem ngay</a> 
+                    <a href="@Url.Action("Category","Home")" class="topbar-link">Xem ngay</a> 
                 </div> 
             </div> 
             <button class="topbar-btn next">&#10095;</button>
         </div> <!-- Main navigation --> 
-            <div class="main-header"> 
-                <div class="logo"> 
-                    <a href="@Url.Action("Home","Home")"><img src="~/Content/Images/logo-color.png" alt="Supersports Logo"></a>
-                </div> 
-                <nav class="nav-menu"> 
-                    <ul> 
-                        <li>
-                            <a href="#">Hàng Mới</a>
-                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
-                        </li> 
-                        <li>
-                            <a href="#">Nam</a>
-                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
-                        </li> 
-                        <li>
-                            <a href="#">Nữ</a>
-                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
-                        </li> 
-                        <li>
-                            <a href="#">Trẻ Em</a>
-                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
-                        </li> 
-                        <li>
-                            <a href="#">Phụ Kiện</a>
-                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
-                        </li> 
-                        <li>
-                            <a href="#">Thương Hiệu</a>
-                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
-                        </li> 
-                        <li>
-                            <a href="#">Thể Thao</a>
-                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
-                        </li> 
-                        <li>
-                            <a href="#" class="highlight">Ưu Đãi</a>
-                            <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
-                        </li> 
-                    </ul> 
-                </nav> 
-                <div class="search-box"> 
-                    <input type="text" placeholder="Bạn đang tìm gì"> 
-                    <button> <span class="material-symbols-outlined">search</span> </button> 
-                </div> 
-                <div class="icons"> 
-                    <a href="@Url.Action("Register_Login","Home")" style="color:white;"><span class="material-symbols-outlined">person</span> </a>
-                    <a href="@Url.Action("Cart","Home")" style="color:white;"><span class="material-symbols-outlined"> shopping_bag</span> </a>
-                    <span class="material-symbols-outlined">location_on</span> 
-                    <a href="@Url.Action("OrderHistory","Home")" style="color:white;"><span class="material-symbols-outlined base">inventory_2</span></a>
-                    <img class="flag" src="https://flagcdn.com/w40/vn.png" alt="Vietnam Flag">
-                    <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span> 
-                    <br /> 
-                </div> 
-            </div> 
+        <div class="main-header">
+            <div class="logo">
+                <a href="@Url.Action("Home","Home")"><img src="~/Content/Images/logo-color.png" alt="Supersports Logo"></a>
+            </div>
+            <div class="icons">
+                <a href="@Url.Action("Register_Login","Home")" style="color:white;"><span class="material-symbols-outlined">person</span> </a>
+                <a href="@Url.Action("Cart","Home")" style="color:white;"><span class="material-symbols-outlined"> shopping_bag</span> </a>
+                <a href="@Url.Action("OrderHistory","Home")" style="color:white;"><span class="material-symbols-outlined base">inventory_2</span></a>
+                <img class="flag" src="https://flagcdn.com/w40/vn.png" alt="Vietnam Flag">
+                <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
+                <br />
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li>
+                        <a href="@Url.Action("Category","Home")">Hàng Mới</a>
+                        <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Category","Home")">Nam</a>
+                        <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Category","Home")">Nữ</a>
+                        <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Category","Home")">Trẻ Em</a>
+                        <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Category","Home")">Phụ Kiện</a>
+                        <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Category","Home")">Thương Hiệu</a>
+                        <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Category","Home")">Thể Thao</a>
+                        <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Category","Home")" class="highlight">Ưu Đãi</a>
+                        <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_drop_down</span>
+                    </li>
+                </ul>
+            </nav>
+            <div class="search-box">
+                <input type="text" placeholder="Bạn đang tìm gì">
+                <button> <span class="material-symbols-outlined">search</span> </button>
+            </div>
+
+        </div> 
             <!-- Bottom info bar --> 
             <div class="info-bar"> 
                 <span>🚚 Miễn phí giao hàng đơn từ 699k</span> 
                 <span>📦 Miễn phí đổi trả đến 30 ngày</span> 
                 <span>✅ Cam kết 100% chính hãng</span> 
-                <span>🏷️ Đăng ký nhận ngay 150k</span> 
-            </div>
+                <a href="@Url.Action("Register_Login","Home")" class="highlight"><span>🏷️ Đăng ký nhận ngay 150k</span></a>
+</div>
     </header>
     <!-- MAIN CONTENT -->
     <main> @RenderBody() </main> 

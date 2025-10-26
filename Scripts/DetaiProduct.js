@@ -10,8 +10,16 @@
         Orange: ["/Content/Images/OP1.JPG", "/Content/Images/OP2.JPG", "/Content/Images/OP3.JPG", "/Content/Images/OP4.JPG", "/Content/Images/OP5.JPG", "/Content/Images/OP6.JPG", "/Content/Images/OP7.JPG", "/Content/Images/OP8.JPG", "/Content/Images/OP9.JPG"]
     };
 
-    const mainImage = document.getElementById("mainImage");
-    let currentColor = "White";
+    // Xác định màu từ URL hiện tại
+    let currentColor = "";
+
+    const url = window.location.href.toLowerCase();
+
+    if (url.includes("detailproduct_black")) currentColor = "Black";
+    else if (url.includes("detailproduct_purple")) currentColor = "Purple";
+    else if (url.includes("detailproduct_orange")) currentColor = "Orange";
+    else currentColor = "White"; // Mặc định nếu không trùng gì hết
+
     let currentIndex = 0;
 
 
@@ -21,6 +29,7 @@
         mainImage.src = img.src;
         let list = imageList[currentColor];
         currentIndex = list.findIndex(src => img.src.includes(src.split("/").pop()));
+        if (currentIndex === -1) currentIndex = 0; //  Fix lỗi khi không khớp tên ảnh
     }
 
     function nextImage() {
@@ -36,19 +45,6 @@
     }
 
 
-    // CHỌN MÀU (redirect sang trang khác)
-
-    function selectColor(el, color) {
-        document.querySelectorAll(".color-item").forEach(item => item.classList.remove("active"));
-        el.classList.add("active");
-
-        switch (color) {
-            case "White": window.location.href = "/Home/DetailProduct_White"; break;
-            case "Black": window.location.href = "/Home/DetailProduct_Black"; break;
-            case "Purple": window.location.href = "/Home/DetailProduct_Purple"; break;
-            case "Orange": window.location.href = "/Home/DetailProduct_Orange"; break;
-        }
-    }
 
 
     // CHỌN SIZE / FIT
@@ -174,13 +170,30 @@
     // MUA NGAY
     function buyNow() {
         let sizeEl = document.querySelector(".size.active");
+
+        // ⚠️ Nếu chưa chọn size thì cảnh báo và DỪNG LUÔN
         if (!sizeEl) {
             alert("⚠️ Vui lòng chọn kích thước trước khi mua!");
-            return;
+            return false; // ⛔ Dừng hàm, KHÔNG chuyển trang
         }
-        alert("🛒 Cảm ơn bạn! Chúng tôi sẽ chuyển đến trang thanh toán.");
+
+        // ✅ Nếu đã chọn size thì chuyển trang liền
+        let size = sizeEl.innerText;
+        let qty = parseInt(document.getElementById("qty").value) || 1;
+        let productName = "Adidas F50 League";
+        let productColor = currentColor;
+        let price = 2400000;
+        let image = mainImage.src;
+
+        let orderItem = { name: productName, color: productColor, size, qty, price, image };
+
+        // Lưu thông tin sản phẩm để trang sau dùng
+        localStorage.setItem("buyNowItem", JSON.stringify(orderItem));
+
+        // Chuyển sang trang thanh toán ngay
         window.location.href = "/Home/DeliverLocate";
     }
+
 
     // GẮN HÀM TOÀN CỤC
     window.changeImage = changeImage;
@@ -197,3 +210,16 @@
     window.openCart = openCart;
     window.closeCart = closeCart;
 });
+function selectColor(el, color) {
+    // Bỏ active ở các nút khác
+    document.querySelectorAll(".color-item").forEach(item => item.classList.remove("active"));
+    el.classList.add("active");
+
+    // Chuyển sang trang tương ứng
+    switch (color) {
+        case "White": window.location.href = "/Home/DetailProduct_White"; break;
+        case "Black": window.location.href = "/Home/DetailProduct_Black"; break;
+        case "Purple": window.location.href = "/Home/DetailProduct_Purple"; break;
+        case "Orange": window.location.href = "/Home/DetailProduct_Orange"; break;
+    }
+}

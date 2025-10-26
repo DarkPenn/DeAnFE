@@ -36,4 +36,6 @@
 
     showItem(index);
     startAutoSlide();
+
+  
 });

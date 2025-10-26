@@ -1,90 +1,121 @@
-﻿    // Danh sách input và validate tương ứng
-    var inputs = [
-    {id: "cardNumber", regex: /^\d{16}$/, msg: "Số thẻ phải gồm 16 chữ số" },
-    {id: "expiry", regex: /^(0[1-9]|1[0-2])\/\d{2}$/, msg: "Định dạng phải là MM/YY" },
-    {id: "cvv", regex: /^\d{3, 4}$/, msg: "CVV phải là 3 hoặc 4 chữ số" },
-    {id: "cardHolder", regex: /^[A-Z ]+$/, msg: "Tên chủ thẻ viết in hoa, không dấu" },
-    {id: "email", regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, msg: "Email không hợp lệ" }
-    ];
+﻿document.addEventListener("DOMContentLoaded", function () {
 
-    const form = document.getElementById('cardForm');
-    const submitButton = document.getElementById('submitPayment');
-    const modal = document.getElementById('successModal');
-    const modalCloseButton = document.getElementById('modalCloseButton');
+    const fields = {
+        cardNumber: document.getElementById("cardNumber"),
+        expiry: document.getElementById("expiry"),
+        cvv: document.getElementById("cvv"),
+        cardHolder: document.getElementById("cardHolder"),
+        email: document.getElementById("email"),
+        terms: document.getElementById("terms"),
+        noEmail: document.getElementById("noEmail")
+    };
 
-    // Cập nhật trạng thái nút Thanh toán
-    function updateSubmitButtonState() {
-        let allFilled = true;
-        inputs.forEach(item => {
-            const input = document.getElementById(item.id);
+    const errors = {
+        cardNumber: document.getElementById("err-cardNumber"),
+        expiry: document.getElementById("err-expiry"),
+        cvv: document.getElementById("err-cvv"),
+        cardHolder: document.getElementById("err-cardHolder"),
+        email: document.getElementById("err-email")
+    };
 
-    // Bỏ qua email nếu chọn "Không sử dụng email"
-    if (item.id === 'email' && document.getElementById('noEmail').checked) {
-                return;
-            }
-    if (!input || input.value.trim() === '') {
-        allFilled = false;
-            }
-        });
+    const submitBtn = document.getElementById("submitPayment");
+    const modal = document.getElementById("successModal");
+    const modalClose = document.getElementById("modalCloseButton");
 
-    if (allFilled) {
-        submitButton.classList.add('active');
-        } else {
-        submitButton.classList.remove('active');
-        }
+    // 🔹 Xóa lỗi cũ
+    function clearErrors() {
+        Object.values(errors).forEach(e => e.textContent = "");
+        Object.values(fields).forEach(f => f.classList.remove("error-border"));
     }
 
-    // Theo dõi thay đổi dữ liệu
-    inputs.forEach(item => {
-        const input = document.getElementById(item.id);
-    if (input) {
-        input.addEventListener('input', updateSubmitButtonState);
+    // 🔹 Hiển thị lỗi
+    function showError(field, message) {
+        if (errors[field]) {
+            errors[field].textContent = message;
+            fields[field].classList.add("error-border");
         }
-    });
-    document.getElementById('noEmail').addEventListener('change', updateSubmitButtonState);
+    }
+    const noEmail = document.getElementById("noEmail");
+    if (noEmail) {
+        noEmail.addEventListener("change", updateButtonState);
+    }
 
-    // Validate khi submit form
-    form.addEventListener('submit', function (e) {
+    // 🔹 Kiểm tra hợp lệ
+    function validateForm() {
+        clearErrors();
+        let valid = true;
+
+        // Số thẻ
+        if (!/^\d{16}$/.test(fields.cardNumber.value.trim())) {
+            showError("cardNumber", "Số thẻ phải gồm 16 chữ số");
+            valid = false;
+        }
+
+        // Tháng/năm
+        if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(fields.expiry.value.trim())) {
+            showError("expiry", "Định dạng phải là MM/YY");
+            valid = false;
+        }
+
+        // CVV
+        if (!/^\d{3,4}$/.test(fields.cvv.value.trim())) {
+            showError("cvv", "CVV phải là 3 hoặc 4 chữ số");
+            valid = false;
+        }
+
+        // Tên chủ thẻ
+        if (!/^[A-Z ]+$/.test(fields.cardHolder.value.trim())) {
+            showError("cardHolder", "Tên chủ thẻ phải viết in hoa, không dấu");
+            valid = false;
+        }
+
+        // Email (chỉ kiểm tra nếu không chọn “Không sử dụng email”)
+        if (!fields.noEmail.checked) {
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email.value.trim())) {
+                showError("email", "Email không hợp lệ");
+                valid = false;
+            }
+        }
+
+        // Điều khoản
+        if (!fields.terms.checked) {
+            alert("Vui lòng đồng ý với Chính sách bảo vệ dữ liệu cá nhân.");
+            valid = false;
+        }
+
+        return valid;
+    }
+
+    // 🔹 Khi người dùng bấm “Xác nhận thanh toán”
+    submitBtn.addEventListener("click", function (e) {
         e.preventDefault();
-    let formValid = true;
 
-        inputs.forEach(item => {
-            const input = document.getElementById(item.id);
-    const errorDiv = document.getElementById(`err-${item.id}`);
-    const isEmailField = item.id === 'email';
-    const isEmailDisabled = isEmailField && document.getElementById('noEmail').checked;
+        if (validateForm()) {
+            // Lưu thông tin thẻ vào localStorage (demo)
+            const paymentInfo = {
+                cardNumber: fields.cardNumber.value.trim(),
+                expiry: fields.expiry.value.trim(),
+                cardHolder: fields.cardHolder.value.trim(),
+                email: fields.noEmail.checked ? "Không sử dụng email" : fields.email.value.trim(),
+                method: "Credit/Debit Card"
+            };
 
-    input.classList.remove('input-error');
-    errorDiv.textContent = '';
+            localStorage.setItem("paymentInfo", JSON.stringify(paymentInfo));
 
-    if (input.value.trim() === '' && !isEmailDisabled) {
-        errorDiv.textContent = 'Trường này là bắt buộc.';
-    input.classList.add('input-error');
-    formValid = false;
-            } else if (input.value.trim() !== '' && !item.regex.test(input.value.trim()) && !isEmailDisabled) {
-        errorDiv.textContent = item.msg;
-    input.classList.add('input-error');
-    formValid = false;
-            }
-        });
+            // Hiển thị popup thành công
+            modal.style.display = "flex";
 
-    if (formValid) {
-        // Hiển thị pop-up thành công
-        modal.style.display = 'block';
+            // Sau 4 giây tự động quay về trang chủ
+            setTimeout(() => {
+                window.location.href = "http://localhost:56486/Home/Home";
+            }, 4000);
         }
     });
 
-    // Đóng modal khi click nút
-    modalCloseButton.onclick = function () {
-        modal.style.display = 'none';
-    }
+    // 🔹 Đóng popup thủ công
+    modalClose.addEventListener("click", function () {
+        modal.style.display = "none";
+        window.location.href = "http://localhost:56486/Home/Home";
+    });
 
-    // Đóng modal khi click ngoài vùng modal
-    window.onclick = function (event) {
-        if (event.target == modal) {
-        modal.style.display = 'none';
-        }
-    }
-
-    // Khởi tạo trạng thái ban đầu
-    updateSubmitButtonState();
+});

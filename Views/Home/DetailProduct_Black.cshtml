@@ -1,641 +1,151 @@
-﻿<!DOCTYPE html>
+﻿@section styles {
+    <link rel="stylesheet" href="~/Content/Css/DetailProduct.css" />
+}
+
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sản phẩm - Demo</title>
-    <style>
-        body {
-            font-family: "Open Sans", sans-serif;
-            background: #fff;
-            color: #111;
-            margin: 0;
-            padding: 0;
-        }
-
-        .product-page {
-            display: flex;
-            gap: 40px;
-            align-items: flex-start;
-            padding: 40px;
-        }
-
-        /* Gallery */
-        .gallery {
-            width: 50%;
-            position: relative;
-        }
-
-        .main-image {
-            position: relative;
-            width: 100%;
-            overflow: hidden; /* Giữ nút và ảnh nằm trong khung */
-            background: #fff;
-            border-radius: 8px;
-        }
-
-            .main-image img {
-                width: 100%;
-                display: block;
-                border-radius: 8px;
-            }
-
-        /* Nút chuyển ảnh nằm sát bên hông ảnh chính */
-        /* Nút chuyển ảnh */
-        .nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255,255,255,0.9);
-            color: #000;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 22px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: background 0.3s, transform 0.2s;
-            z-index: 2; /* nằm trên ảnh */
-        }
-
-            .nav-btn:hover {
-                background: rgba(255,255,255,1);
-                transform: translateY(-50%) scale(1.05);
-            }
-
-            .nav-btn.prev {
-                left: 15px;
-            }
-
-            .nav-btn.next {
-                right: 15px;
-            }
-
-        /* --- thumbnail --- */
-        .thumbnail-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: left;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-            .thumbnail-list img {
-                width: 80px;
-                border: 1px solid #ddd;
-                cursor: pointer;
-                border-radius: 6px;
-            }
-
-                .thumbnail-list img:hover {
-                    border-color: #111;
-                }
-
-        /* Info box */
-        .product-info {
-            width: 50%;
-        }
-
-        .brand {
-            font-size: 14px;
-            font-weight: 600;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-        }
-
-        .product-info h2 {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .meta {
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-
-            .meta a {
-                color: #0066c0;
-                text-decoration: none;
-            }
-
-                .meta a:hover {
-                    text-decoration: underline;
-                }
-
-        .sku {
-            margin-left: 10px;
-            color: #555;
-        }
-
-        .price {
-            font-size: 26px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: #111;
-        }
-
-        .old-price {
-            text-decoration: line-through;
-            color: #777;
-            font-size: 16px;
-            margin-left: 8px;
-        }
-
-        .colors, .size-options {
-            margin: 20px 0;
-        }
-
-            .colors h4, .size-options h4 {
-                font-size: 16px;
-                margin-bottom: 10px;
-            }
-
-        .color-list {
-            display: flex;
-            gap: 12px;
-        }
-
-        .color-item {
-            border: 2px solid transparent;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-            .color-item img {
-                width: 80px;
-                display: block;
-                border-radius: 4px;
-            }
-
-            .color-item.active {
-                border-color: #000;
-            }
-
-        .size-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .size {
-            padding: 12px 18px;
-            border: 1px solid #111;
-            background: #fff;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-            .size:hover {
-                background: #f8f8f8;
-            }
-
-            .size.disabled {
-                border: 1px solid #ccc;
-                color: #999;
-                text-decoration: line-through;
-                cursor: not-allowed;
-                background: #f9f9f9;
-            }
-
-            .size.active {
-                background: #111;
-                color: #fff;
-            }
-
-        .buy-actions {
-            margin-top: 25px;
-            display: flex;
-            gap: 12px;
-        }
-
-        .btn {
-            flex: 1;
-            padding: 14px;
-            font-size: 16px;
-            font-weight: 600;
-            border-radius: 6px;
-            cursor: pointer;
-            text-align: center;
-        }
-
-            .btn.buy {
-                background: #111;
-                color: #fff;
-                border: 1px solid #111;
-            }
-
-            .btn.add {
-                background: #fff;
-                color: #111;
-                border: 1px solid #111;
-            }
-
-        .details {
-            margin-top: 30px;
-            list-style: none
-        }
-
-            .details h3 {
-                font-size: 18px;
-                margin-bottom: 10px;
-            }
-
-            .details ul {
-                padding-left: 18px;
-                line-height: 1.6;
-                color: #444;
-            }
-
-        .fit-options {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 40px;
-        }
-
-        .fit-item {
-            text-align: center;
-        }
-
-        .fit-btn {
-            width: 100px;
-            height: 14px;
-            background-color: #e5e5e5;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-            .fit-btn.active {
-                background-color: lime;
-            }
-
-        .fit-label {
-            margin-top: 5px;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-            .fit-label span {
-                display: block;
-                font-weight: normal;
-                font-size: 0.9em;
-            }
-
-
-        /* Cho phần “Số lượng” gần hơn */
-        .quantity {
-            margin-top: 10px;
-        }
-
-        .quantity-control {
-            display: flex;
-            align-items: center;
-            border: 1px solid #ccc;
-            border-radius: 6px; 
-            overflow: hidden;
-            width: fit-content;
-        }
-
-            .quantity-control button {
-                width: 30px;
-                height: 30px;
-                border: none;
-                background-color: white;
-                font-size: 20px;
-                cursor: pointer;
-                transition: background-color 0.2s;
-            }
-
-                .quantity-control button:hover {
-                    background-color: #f2f2f2;
-                }
-
-            .quantity-control input {
-                width: 40px;
-                height: 30px;
-                border: none;
-                text-align: center;
-                font-size: 16px;
-                font-weight: bold;
-                outline: none;
-            }
-
-        .shoe-fit {
-            margin-top: 20px; /* Đẩy xuống một chút cho thoáng */
-        }
-
-        .product-details {
-            display: flex;
-            justify-content: flex-start; 
-            align-items: flex-start; 
-            gap: 40px; 
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 40px;
-        }
-
-        .details-left {
-            flex: 0 0 40%;
-        }
-
-        .details-right {
-            flex: 1;
-        }
-
-        .details-left table {
-            flex: 0 0 40%; 
-            border-collapse: collapse;
-            font-family: Arial, sans-serif;
-            font-size: 16px;
-            border: 1px solid #ddd;
-        }
-
-        .details-left th,
-        .details-left td {
-            border: 1px solid #ddd;
-            padding: 10px 15px;
-            text-align: left;
-        }
-
-        .details-left th {
-            background-color: #f5f5f5;
-            font-weight: bold;
-            width: 35%;
-        }
-
-        .details-right {
-            flex: 1; /* chiếm phần còn lại */
-        }
-
-            /* Tùy chỉnh thêm cho phần chữ */
-            .details-right h3 {
-                font-size: 22px;
-                font-weight: 700;
-                color: #001a35;
-                margin-bottom: 10px;
-            }
-
-            .details-right p {
-                font-size: 15px;
-                color: #333;
-                line-height: 1.6;
-                margin-bottom: 20px;
-            }
-
-            .details-right h4 {
-                font-size: 18px;
-                font-weight: 700;
-                margin-bottom: 10px;
-            }
-
-            .details-right ul {
-                list-style-type: none;
-                padding-left: 0;
-            }
-
-                .details-right ul li {
-                    padding-left: 16px;
-                    position: relative;
-                    margin-bottom: 6px;
-                }
-
-                    .details-right ul li::before {
-                        content: "•";
-                        color: #001a35;
-                        position: absolute;
-                        left: 0;
-                    }
-       
-        .close-btn {
-            border: none;
-            background: none;
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        .checkout-btn {
-            width: 100%;
-            padding: 10px;
-            background: #ff6f00;
-            border: none;
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        /* Popup overlay */
-        .popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.6);
-            display: none; /* ẩn mặc định */
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-        }
-
-        /* Nội dung popup */
-        .popup-content {
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            width: 300px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
-            .popup-content h3 {
-                margin-bottom: 15px;
-                font-size: 18px;
-            }
-
-            .popup-content button {
-                margin: 5px;
-                padding: 8px 15px;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-            }
-
-                .popup-content button:first-child {
-                    background: #4CAF50;
-                    color: #fff;
-                }
-
-                .popup-content button:last-child {
-                    background: #2196F3;
-                    color: #fff;
-                }
-
-    </style>
 </head>
 <body>
-    <div class="product-page">
-        <!-- Left: Gallery -->
-        <div class="gallery">
-            <div class="main-image">
-                <button class="nav-btn prev" onclick="prevImage()">&#10094;</button>
-                <img id="mainImage" src="~/Content/Images/BP1.jpg" alt="Sản phẩm chính" />
-                <button class="nav-btn next" onclick="nextImage()">&#10095;</button>
-            </div>
-            <div class="thumbnail-list">
-                <img src="~/Content/Images/BP1.JPG" onclick="changeImage(this)">
-                <img src="~/Content/Images/BP2.JPG" onclick="changeImage(this)">
-                <img src="~/Content/Images/BP3.JPG" onclick="changeImage(this)">
-                <img src="~/Content/Images/BP4.JPG" onclick="changeImage(this)">
-                <img src="~/Content/Images/BP5.JPG" onclick="changeImage(this)">
-                <img src="~/Content/Images/BP6.JPG" onclick="changeImage(this)">
-                <img src="~/Content/Images/BP7.JPG" onclick="changeImage(this)">
-                <img src="~/Content/Images/BP8.JPG" onclick="changeImage(this)">
-                <img src="~/Content/Images/BP9.JPG" onclick="changeImage(this)">
-            </div>
-        </div>
-
-        <!-- Right: Product Info -->
-        <div class="product-info">
-            <div class="brand">ADIDAS</div>
-            <h2>Giày Đá Bóng Dành Cho Sân Cỏ Nhân Tạo Nam Adidas F50 League Tf - Đen</h2>
-            <div class="meta">
-                <a href="#">Giày Đá Bóng</a>
-                <span class="sku">SKU JH7725</span>
-            </div>
-
-            <div class="price">
-                2.400.000₫ <span class="old-price"></span>
-            </div>
-
-            <div class="color-list">
-                <div class="color-item" onclick="selectColor(this, 'White')">
-                    <img src="~/Content/Images/WP1.jpg">
+    <div class="allpage">
+        <div class="product-page">
+            <!-- Left: Gallery -->
+            <div class="gallery">
+                <div class="main-image">
+                    <button class="nav-btn prev" onclick="prevImage()">&#10094;</button>
+                    <img id="mainImage" src="~/Content/Images/BP1.jpg" alt="Sản phẩm chính" />
+                    <button class="nav-btn next" onclick="nextImage()">&#10095;</button>
                 </div>
-                <div class="color-item" onclick="selectColor(this, 'Purple')">
-                    <img src="~/Content/Images/PP1.jpg">
-                </div>
-                <div class="color-item active" onclick="selectColor(this, 'Black')">
-                    <img src="~/Content/Images/BP1.jpg">
-                </div>
-                <div class="color-item" onclick="selectColor(this, 'Orange')">
-                    <img src="~/Content/Images/OP1.jpg">
+                <div class="thumbnail-list">
+                    <img src="~/Content/Images/BP1.JPG" onclick="changeImage(this)">
+                    <img src="~/Content/Images/BP2.JPG" onclick="changeImage(this)">
+                    <img src="~/Content/Images/BP3.JPG" onclick="changeImage(this)">
+                    <img src="~/Content/Images/BP4.JPG" onclick="changeImage(this)">
+                    <img src="~/Content/Images/BP5.JPG" onclick="changeImage(this)">
+                    <img src="~/Content/Images/BP6.JPG" onclick="changeImage(this)">
+                    <img src="~/Content/Images/BP7.JPG" onclick="changeImage(this)">
+                    <img src="~/Content/Images/BP8.JPG" onclick="changeImage(this)">
+                    <img src="~/Content/Images/BP9.JPG" onclick="changeImage(this)">
                 </div>
             </div>
 
-
-
-
-            <div class="size-options">
-                <h4>Kích Thước</h4>
-                <div class="size-list">
-                    <button class="size" onclick="selectSize(this)">US 6</button>
-                    <button class="size disabled">US 6.5</button>
-                    <button class="size" onclick="selectSize(this)">US 7</button>
-                    <button class="size disabled">US 7.5</button>
-                    <button class="size disabled">US 8</button>
-                    <button class="size" onclick="selectSize(this)">US 8.5</button>
-                    <button class="size" onclick="selectSize(this)">US 9</button>
+            <!-- Right: Product Info -->
+            <div class="product-info">
+                <div class="brand">ADIDAS</div>
+                <h2>Giày Đá Bóng Dành Cho Sân Cỏ Nhân Tạo Nam Adidas F50 League Tf - Đen</h2>
+                <div class="meta">
+                    <a href="#">Giày Đá Bóng</a>
+                    <span class="sku">SKU JH7725</span>
                 </div>
-                <!-- Hướng dẫn chọn kích thước + Kiểm tra tồn kho -->
-                <div class="extra-options">
-                    <div class="links-row">
-                        <a href="#">📏 Hướng dẫn chọn kích thước</a><br>
-                        <a href="#">🏬 Kiểm tra tồn kho tại cửa hàng</a>
+
+                <div class="price">
+                    2.400.000₫ <span class="old-price"></span>
+                </div>
+
+                <div class="color-list">
+                    <div class="color-item" onclick="selectColor(this, 'White')">
+                        <img src="~/Content/Images/WP1.jpg">
                     </div>
-
-                    <div class="shoe-fit">
-                        <div class="fit-options">
-                            <div class="fit-item">
-                                <button class="fit-btn" onclick="selectFit(this)"></button>
-                                <div class="fit-label">Ôm<br><span>(Snug)</span></div>
-                            </div>
-                            <div class="fit-item">
-                                <button class="fit-btn" onclick="selectFit(this)"></button>
-                                <div class="fit-label">Ôm Vừa<br><span>(Narrow)</span></div>
-                            </div>
-                            <div class="fit-item">
-                                <button class="fit-btn active" onclick="selectFit(this)"></button>
-                                <div class="fit-label">Vừa Vặn<br><span>(Regular)</span></div>
-                            </div>
-                            <div class="fit-item">
-                                <button class="fit-btn" onclick="selectFit(this)"></button>
-                                <div class="fit-label">Rộng<br><span>(Wide)</span></div>
-                            </div>
-                            <div class="fit-item">
-                                <button class="fit-btn" onclick="selectFit(this)"></button>
-                                <div class="fit-label">Cực Rộng<br><span>(X-Wide)</span></div>
-                            </div>
-                        </div>
-
-                        <div class="quantity">
-                            <label for="quantity">Số lượng</label>
-                            <div class="quantity-control">
-                                <button onclick="changeQty(-1)">−</button>
-                                <input type="text" id="qty" value="1">
-                                <button onclick="changeQty(1)">+</button>
-                            </div>
-                        </div>
+                    <div class="color-item" onclick="selectColor(this, 'Purple')">
+                        <img src="~/Content/Images/PP1.jpg">
+                    </div>
+                    <div class="color-item active" onclick="selectColor(this, 'Black')">
+                        <img src="~/Content/Images/BP1.jpg">
+                    </div>
+                    <div class="color-item" onclick="selectColor(this, 'Orange')">
+                        <img src="~/Content/Images/OP1.jpg">
                     </div>
                 </div>
 
-                <div class="buy-actions">
-                    <button class="btn buy" onclick="buyNow()">Mua ngay</button>
-                    <button type="button" class="btn add" onclick="addToCart()">Thêm vào giỏ</button>
-                </div>
 
-                <div class="details">
-                    <span>
-                        🚚Miễn phí giao hàng đơn từ 699k Xem chi tiết. <br />
-                        ↩️Đổi trả miễn phí đến 30 ngày Xem chi tiết. <br />
-                        o%Trả góp 0% lãi suất từ 3.000.000 VNĐ. <br />
-                        💳Thanh toán trực tuyến nhanh chóng và an toàn.<br />
-                        ✔️Sản phẩm chính hãng 100%..<br />
-                    </span>
+
+
+                <div class="size-options">
+                    <h4>Kích Thước</h4>
+                    <div class="size-list">
+                        <button class="size" onclick="selectSize(this)">US 6</button>
+                        <button class="size disabled">US 6.5</button>
+                        <button class="size" onclick="selectSize(this)">US 7</button>
+                        <button class="size disabled">US 7.5</button>
+                        <button class="size disabled">US 8</button>
+                        <button class="size" onclick="selectSize(this)">US 8.5</button>
+                        <button class="size" onclick="selectSize(this)">US 9</button>
+                    </div>
+                    <!-- Hướng dẫn chọn kích thước + Kiểm tra tồn kho -->
+                    <div class="extra-options">
+                        <div class="links-row">
+                            <a href="#">📏 Hướng dẫn chọn kích thước</a><br>
+                            <a href="#">🏬 Kiểm tra tồn kho tại cửa hàng</a>
+                        </div>
+
+                        <div class="shoe-fit">       
+                            <div class="quantity">
+                                <label for="quantity">Số lượng</label>
+                                <div class="quantity-control">
+                                    <button onclick="changeQty(-1)">−</button>
+                                    <input type="text" id="qty" value="1">
+                                    <button onclick="changeQty(1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="buy-actions">
+                        <button type="button" class="btn buy" onclick="buyNow()">Mua ngay</button>
+                        <button type="button" class="btn add" onclick="addToCart()">Thêm vào giỏ</button>
+                    </div>
+
+                    <div class="details">
+                        <span>
+                            🚚Miễn phí giao hàng đơn từ 699k Xem chi tiết. <br />
+                            ↩️Đổi trả miễn phí đến 30 ngày Xem chi tiết. <br />
+                            o%Trả góp 0% lãi suất từ 3.000.000 VNĐ. <br />
+                            💳Thanh toán trực tuyến nhanh chóng và an toàn.<br />
+                            ✔️Sản phẩm chính hãng 100%..<br />
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="product-details">
-        <div class="details-left">
-            <table>
-                <tr><th>Chiều cao đế</th><td>Từ 2 cm - 4 cm</td></tr>
-                <tr><th>Họa tiết đế</th><td>Đế đinh TF</td></tr>
-                <tr><th>Chất liệu thân giày</th><td>Tổng hợp, Cao su, EVA</td></tr>
-                <tr><th>Bề mặt sử dụng</th><td>Sân cỏ nhân tạo</td></tr>
-                <tr><th>Dịp sử dụng</th><td>Thi đấu</td></tr>
-                <tr><th>Môn thể thao</th><td>Bóng đá</td></tr>
-                <tr><th>Công nghệ</th><td>EVA Midsole</td></tr>
-                <tr><th>Tính năng nổi bật</th><td>Bám bóng tốt, Công nghệ giảm chấn, Đẩy lực - Tăng tốc</td></tr>
-                <tr><th>Loại dây giày</th><td>Có</td></tr>
-                <tr><th>Cổ</th><td>Cổ thấp</td></tr>
-                <tr><th>Kiểu dáng</th><td>Vừa vặn (Regular Fit)</td></tr>
-            </table>
-        </div>
+        <div class="product-details">
+            <div class="details-left">
+                <table>
+                    <tr><th>Chiều cao đế</th><td>Từ 2 cm - 4 cm</td></tr>
+                    <tr><th>Họa tiết đế</th><td>Đế đinh TF</td></tr>
+                    <tr><th>Chất liệu thân giày</th><td>Tổng hợp, Cao su, EVA</td></tr>
+                    <tr><th>Bề mặt sử dụng</th><td>Sân cỏ nhân tạo</td></tr>
+                    <tr><th>Dịp sử dụng</th><td>Thi đấu</td></tr>
+                    <tr><th>Môn thể thao</th><td>Bóng đá</td></tr>
+                    <tr><th>Công nghệ</th><td>EVA Midsole</td></tr>
+                    <tr><th>Tính năng nổi bật</th><td>Bám bóng tốt, Công nghệ giảm chấn, Đẩy lực - Tăng tốc</td></tr>
+                    <tr><th>Loại dây giày</th><td>Có</td></tr>
+                    <tr><th>Cổ</th><td>Cổ thấp</td></tr>
+                    <tr><th>Kiểu dáng</th><td>Vừa vặn (Regular Fit)</td></tr>
+                </table>
+            </div>
 
-        <div class="details-right">
-            <h3>GIÀY ĐÁ BÓNG SÂN CỎ NHÂN TẠO NAM ADIDAS F50 LEAGUE</h3>
-            <p>
-                Giày Đá Bóng Sân Cỏ Nhân Tạo Nam Adidas F50 League giúp bạn bứt tốc và thể hiện cá tính trên từng pha bóng. Thiết kế
-                nổi bật với họa tiết Sprintgrid và chất liệu Fiberskin linh hoạt, kết hợp lưỡi gà Tunnel Tongue giúp cố định bàn chân chắc chắn.
-                Đế giữa EVA và đế ngoài cao su đinh nhỏ hỗ trợ êm ái và ổn định khi di chuyển trên sân cỏ nhân tạo.
-            </p>
+            <div class="details-right">
+                <h3>GIÀY ĐÁ BÓNG SÂN CỎ NHÂN TẠO NAM ADIDAS F50 LEAGUE</h3>
+                <p>
+                    Giày Đá Bóng Sân Cỏ Nhân Tạo Nam Adidas F50 League giúp bạn bứt tốc và thể hiện cá tính trên từng pha bóng. Thiết kế
+                    nổi bật với họa tiết Sprintgrid và chất liệu Fiberskin linh hoạt, kết hợp lưỡi gà Tunnel Tongue giúp cố định bàn chân chắc chắn.
+                    Đế giữa EVA và đế ngoài cao su đinh nhỏ hỗ trợ êm ái và ổn định khi di chuyển trên sân cỏ nhân tạo.
+                </p>
 
-            <h4>THÔNG SỐ</h4>
-            <ul>
-                <li>Dáng giày: Regular fit</li>
-                <li>Kiểu dây/cổ giày: Cột dây</li>
-                <li>Thân giày: Chất liệu Fiberskin cùng họa tiết Sprintgrid nổi bật</li>
-                <li>Lớp lót: Vải mềm thoáng khí</li>
-                <li>Đệm giữa: EVA nhẹ, tăng độ êm khi chạy nước rút</li>
-                <li>Đế ngoài: Cao su thiết kế đinh nhỏ, phù hợp sân cỏ nhân tạo</li>
-                <li>Mã sản phẩm: JH7725</li>
-            </ul>
+                <h4>THÔNG SỐ</h4>
+                <ul>
+                    <li>Dáng giày: Regular fit</li>
+                    <li>Kiểu dây/cổ giày: Cột dây</li>
+                    <li>Thân giày: Chất liệu Fiberskin cùng họa tiết Sprintgrid nổi bật</li>
+                    <li>Lớp lót: Vải mềm thoáng khí</li>
+                    <li>Đệm giữa: EVA nhẹ, tăng độ êm khi chạy nước rút</li>
+                    <li>Đế ngoài: Cao su thiết kế đinh nhỏ, phù hợp sân cỏ nhân tạo</li>
+                    <li>Mã sản phẩm: JH7725</li>
+                </ul>
+            </div>
         </div>
     </div>
     <!-- POPUP Thêm vào giỏ -->
