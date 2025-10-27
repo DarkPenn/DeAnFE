@@ -83,7 +83,7 @@
         }
     });
 
-}); // end DOMContentLoaded
+}); 
 
 // giữ hàm moveSlide nếu bạn vẫn dùng onclick inline ở HTML (tương thích)
 window.moveSlide = function (sectionId, direction) {

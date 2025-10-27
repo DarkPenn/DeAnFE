@@ -1,5 +1,5 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
-    // ==== CHUYỂN GIỮA FORM ====
+    // ==== CHUYỂN GIỮA 2 FORM ====
     document.getElementById("showRegister").addEventListener("click", function (e) {
         e.preventDefault();
         document.getElementById("loginForm").style.display = "none";

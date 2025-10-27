@@ -406,8 +406,8 @@ div {
     margin: 0 auto;
     overflow-x: hidden;
 }
-/* ========== RESPONSIVE ========== */
 
+/* ========== RESPONSIVE ========== */
 /* Tablet: Dưới 1024px */
 @media (max-width: 1024px) {
     .sidebar {

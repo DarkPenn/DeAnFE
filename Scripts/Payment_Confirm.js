@@ -22,13 +22,13 @@
     const modal = document.getElementById("successModal");
     const modalClose = document.getElementById("modalCloseButton");
 
-    // 🔹 Xóa lỗi cũ
+    //  Xóa lỗi cũ
     function clearErrors() {
         Object.values(errors).forEach(e => e.textContent = "");
         Object.values(fields).forEach(f => f.classList.remove("error-border"));
     }
 
-    // 🔹 Hiển thị lỗi
+    //  Hiển thị lỗi
     function showError(field, message) {
         if (errors[field]) {
             errors[field].textContent = message;
@@ -40,7 +40,7 @@
         noEmail.addEventListener("change", updateButtonState);
     }
 
-    // 🔹 Kiểm tra hợp lệ
+    //  Kiểm tra hợp lệ
     function validateForm() {
         clearErrors();
         let valid = true;
@@ -86,7 +86,7 @@
         return valid;
     }
 
-    // 🔹 Khi người dùng bấm “Xác nhận thanh toán”
+    //  Khi người dùng bấm “Xác nhận thanh toán”
     submitBtn.addEventListener("click", function (e) {
         e.preventDefault();
 
@@ -112,7 +112,7 @@
         }
     });
 
-    // 🔹 Đóng popup thủ công
+    //  Đóng popup thủ công
     modalClose.addEventListener("click", function () {
         modal.style.display = "none";
         window.location.href = "http://localhost:56486/Home/Home";

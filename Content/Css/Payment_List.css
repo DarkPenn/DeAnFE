@@ -3,7 +3,7 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* Sử dụng font hệ thống */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
     background: #f4f6f8; /* Nền xám nhạt */
     margin: 0;
     padding: 0;
@@ -30,8 +30,8 @@ main {
 .left-section {
     flex: 1; /* Chiếm phần lớn diện tích */
     background: #fff;
-    padding: 0px 0px; /* Cắt padding để giống ảnh hơn */
-    border-radius: 4px; /* Bo góc nhẹ */
+    padding: 0px 0px; 
+    border-radius: 4px; 
 }
 
     .left-section h3 {
@@ -190,7 +190,7 @@ main {
 
 /* ===== RIGHT SECTION (Đơn hàng) ===== */
 .right-section {
-    width: 400px; /* Cố định độ rộng để khớp với ảnh */
+    width: 400px; 
     background: #fff;
     padding: 20px;
     border-radius: 4px;
@@ -384,11 +384,11 @@ main {
     }
 
 
-/* Helper for image placeholders (not in original file, but required for the example) */
+/* giúp cho hình ảnh(placeholder) của ví dụ  */
 img[alt="Sản phẩm"], .card-logos img, .card-logos-small img {
     background-color: #f0f0f0; /* Giả định rằng không có ảnh, để tạo màu nền */
 }
-/* Tablet (≤ 1024px) */
+/* Tablet (< 1024px) */
 @media (max-width: 1024px) {
     main {
         flex-direction: column;
@@ -423,7 +423,7 @@ img[alt="Sản phẩm"], .card-logos img, .card-logos-small img {
     }
 }
 
-/* Mobile ngang (≤ 768px) */
+/* Mobile ngang (< 768px) */
 @media (max-width: 768px) {
     body {
         font-size: 13px;
@@ -533,7 +533,7 @@ img[alt="Sản phẩm"], .card-logos img, .card-logos-small img {
     }
 }
 
-/* Mobile dọc (≤ 480px) */
+/* Mobile dọc (< 480px) */
 @media (max-width: 480px) {
     main {
         padding: 5px;

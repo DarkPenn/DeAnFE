@@ -44,11 +44,7 @@
         mainImage.src = list[currentIndex];
     }
 
-
-
-
     // CHỌN SIZE / FIT
-
     function selectSize(el) {
         if (el.classList.contains("disabled")) return;
         document.querySelectorAll(".size").forEach(btn => btn.classList.remove("active"));
@@ -62,7 +58,6 @@
 
 
     // TĂNG GIẢM SỐ LƯỢNG
-
     function changeQty(val) {
         let input = document.getElementById('qty');
         let num = parseInt(input.value) + val;
@@ -71,8 +66,7 @@
     }
 
 
-    // GIỎ HÀNG (localStorage)
-
+    // GIỎ HÀNG (lưu vào localStorage)
     function addToCart() {
         let sizeEl = document.querySelector(".size.active");
         if (!sizeEl) {
@@ -116,10 +110,7 @@
         document.getElementById("cartPopup").style.display = "flex";
     }
 
-
-
     // POPUP
-
     function closePopup() {
         document.getElementById("cartPopup").style.display = "none";
     }
@@ -175,7 +166,7 @@
         //  Nếu chưa chọn size thì cảnh báo và DỪNG LUÔN
         if (!sizeEl) {
             alert("⚠️ Vui lòng chọn kích thước trước khi mua!");
-            return false; // ⛔ Dừng hàm, KHÔNG chuyển trang
+            return false; //  Dừng hàm, KHÔNG chuyển trang
         }
 
         //  Nếu đã chọn size thì chuyển trang liền

@@ -69,7 +69,7 @@
 
     .login-box .register-link {
         margin-top: 15px;
-        font-size: 18px; /* tăng kích thước chữ */
+        font-size: 18px; 
         text-align: left;
         font-weight: 600; /* cho chữ đậm hơn */
     }
@@ -77,8 +77,8 @@
     .login-box .forgot-password {
         display: block; /* cho xuống hàng riêng */
         text-align: left;
-        margin-top: -10px; /* kéo gần ô mật khẩu hơn */
-        margin-bottom: 20px; /* cách nút đăng nhập 1 chút */
+        margin-top: -10px; 
+        margin-bottom: 20px; 
         font-size: 14px;
         color: #111;
         text-decoration: none;

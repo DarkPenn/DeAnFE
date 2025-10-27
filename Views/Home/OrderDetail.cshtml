@@ -54,67 +54,67 @@
     </div>
 
     <script>
-       document.addEventListener('DOMContentLoaded', function () {
-    // Lấy mã đơn từ query string
-    const urlParams = new URLSearchParams(window.location.search);
-    const orderId = urlParams.get('id');
+        document.addEventListener('DOMContentLoaded', function () {
+            // Lấy mã đơn từ query string
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('id');
 
-    if (!orderId) {
-        alert("Không tìm thấy mã đơn hàng!");
-        window.location.href = '@Url.Action("OderHistory","Home")';
-        return;
-    }
+            if (!orderId) {
+                alert("Không tìm thấy mã đơn hàng!");
+                window.location.href = '@Url.Action("OderHistory","Home")';
+                return;
+            }
 
-    // Lấy danh sách đơn hàng từ localStorage
-    const ordersHistory = JSON.parse(localStorage.getItem("ordersHistory")) || [];
-    const order = ordersHistory.find(o => o.id === orderId);
+            // Lấy danh sách đơn hàng từ localStorage
+            const ordersHistory = JSON.parse(localStorage.getItem("ordersHistory")) || [];
+            const order = ordersHistory.find(o => o.id === orderId);
 
-    if (!order) {
-        alert("Không tìm thấy đơn hàng!");
-        window.location.href = '@Url.Action("OderHistory","Home")';
-        return;
-    }
+            if (!order) {
+                alert("Không tìm thấy đơn hàng!");
+                window.location.href = '@Url.Action("OderHistory","Home")';
+                return;
+            }
 
-    // Hiển thị thông tin đơn hàng
-    document.getElementById("order-id").textContent = order.id;
-    document.getElementById("order-date").textContent = order.date;
-    document.getElementById("order-status").textContent = order.status || "Đang xử lý";
-    document.getElementById("order-payment").textContent = order.paymentMethod;
+            // Hiển thị thông tin đơn hàng
+            document.getElementById("order-id").textContent = order.id;
+            document.getElementById("order-date").textContent = order.date;
+            document.getElementById("order-status").textContent = order.status || "Đang xử lý";
+            document.getElementById("order-payment").textContent = order.paymentMethod;
 
-     const shippingInfo = JSON.parse(localStorage.getItem("shippingInfo")) || {};
+            const shippingInfo = JSON.parse(localStorage.getItem("shippingInfo")) || {};
 
-    // Hiển thị thông tin người đặt
-    document.getElementById("customer-name").textContent = shippingInfo.name || "Chưa cập nhật";
-    document.getElementById("customer-phone").textContent = shippingInfo.phone || "Chưa cập nhật";
-    document.getElementById("customer-address").textContent = shippingInfo.address || "Chưa cập nhật";
+            // Hiển thị thông tin người đặt
+            document.getElementById("customer-name").textContent = shippingInfo.name || "Chưa cập nhật";
+            document.getElementById("customer-phone").textContent = shippingInfo.phone || "Chưa cập nhật";
+            document.getElementById("customer-address").textContent = shippingInfo.address || "Chưa cập nhật";
 
-    // Hiển thị danh sách sản phẩm
-    const productsTbody = document.getElementById("products-tbody");
-    let totalAmount = 0;
+            // Hiển thị danh sách sản phẩm
+            const productsTbody = document.getElementById("products-tbody");
+            let totalAmount = 0;
 
-    const productsList = order.items || []; // <-- Sửa ở đây
+            const productsList = order.items || []; 
 
-    if (productsList.length > 0) {
-        productsList.forEach(product => {
-            const lineTotal = product.price * product.qty; // <-- Sửa quantity -> qty
-            totalAmount += lineTotal;
+            if (productsList.length > 0) {
+                productsList.forEach(product => {
+                    const lineTotal = product.price * product.qty; 
+                    totalAmount += lineTotal;
 
-            const tr = document.createElement("tr");
-            tr.innerHTML = `
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
                 <td>${product.name}</td>
                 <td class="price">${product.price.toLocaleString()} ₫</td>
                 <td class="quantity">${product.qty}</td>
                 <td class="total">${lineTotal.toLocaleString()} ₫</td>
             `;
-            productsTbody.appendChild(tr);
-        });
-    } else {
-        productsTbody.innerHTML = `<tr><td colspan="4" style="text-align:center;">Không có sản phẩm nào</td></tr>`;
-    }
+                    productsTbody.appendChild(tr);
+                });
+            } else {
+                productsTbody.innerHTML = `<tr><td colspan="4" style="text-align:center;">Không có sản phẩm nào</td></tr>`;
+            }
 
-    // Hiển thị tổng cộng
-    document.getElementById("products-total").textContent = totalAmount.toLocaleString() + " ₫";
-});
+            // Hiển thị tổng cộng
+            document.getElementById("products-total").textContent = totalAmount.toLocaleString() + " ₫";
+        });
 
     </script>
 </body>

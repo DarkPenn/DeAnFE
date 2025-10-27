@@ -56,7 +56,7 @@ body {
     margin: 30px auto 0 auto;
     gap: 20px;
     background: white;
-    padding: 0px; /* Loại bỏ padding ngoài cùng */
+    padding: 0px; 
     border-radius: 8px;
 }
 
