@@ -89,10 +89,10 @@
 
         let newItem = { name: productName, color: productColor, size, qty, price, image };
 
-        // 🔹 Lấy giỏ hàng hiện có
+        //  Lấy giỏ hàng hiện có
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-        // 🔹 Kiểm tra trùng sản phẩm (theo tên + màu + size)
+        //  Kiểm tra trùng sản phẩm (theo tên + màu + size)
         let exist = cart.find(item =>
             item.name === newItem.name &&
             item.color === newItem.color &&
@@ -105,13 +105,14 @@
             cart.push(newItem); // nếu khác thì thêm mới
         }
 
-        // 🔹 Lưu giỏ hàng
+        //  Lưu giỏ hàng
         localStorage.setItem("cart", JSON.stringify(cart));
+        updateCartCount();
 
-        // 🔹 Cập nhật UI
+        //  Cập nhật UI
         renderCart();
 
-        // 🔹 Hiện popup
+        //  Hiện popup
         document.getElementById("cartPopup").style.display = "flex";
     }
 
@@ -171,13 +172,13 @@
     function buyNow() {
         let sizeEl = document.querySelector(".size.active");
 
-        // ⚠️ Nếu chưa chọn size thì cảnh báo và DỪNG LUÔN
+        //  Nếu chưa chọn size thì cảnh báo và DỪNG LUÔN
         if (!sizeEl) {
             alert("⚠️ Vui lòng chọn kích thước trước khi mua!");
             return false; // ⛔ Dừng hàm, KHÔNG chuyển trang
         }
 
-        // ✅ Nếu đã chọn size thì chuyển trang liền
+        //  Nếu đã chọn size thì chuyển trang liền
         let size = sizeEl.innerText;
         let qty = parseInt(document.getElementById("qty").value) || 1;
         let productName = "Adidas F50 League";
@@ -189,12 +190,12 @@
 
         // Lưu thông tin sản phẩm để trang sau dùng
         localStorage.setItem("buyNowItem", JSON.stringify(orderItem));
+        updateCartCount();
+
 
         // Chuyển sang trang thanh toán ngay
         window.location.href = "/Home/DeliverLocate";
     }
-
-
     // GẮN HÀM TOÀN CỤC
     window.changeImage = changeImage;
     window.nextImage = nextImage;

@@ -36,6 +36,18 @@
 
     showItem(index);
     startAutoSlide();
+    function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const countEl = document.getElementById("cartCount");
 
+        const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+
+        if (totalQty > 0) {
+            countEl.textContent = totalQty;
+            countEl.style.display = "block";
+        } else {
+            countEl.style.display = "none";
+        }
+    }
   
 });

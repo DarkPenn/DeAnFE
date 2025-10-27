@@ -33,6 +33,10 @@ namespace TestDeAn.Controllers
         {
             return View();
         }
+        public ActionResult OrderDetail()
+        {
+            return View();
+        }
         public ActionResult Payment_Confirm()
         {
             return View();

@@ -137,18 +137,8 @@
 
             <section class="checkout-right">
                 <h3>Đơn hàng</h3>
-                <div class="product-list">
-                    <div class="product">
-                        <div class="product-image-container">
-                            <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/1f6cba9a-f23a-4b1e-8a09-0c75e3b6509a/pegasus-plus-mens-road-running-shoes-qZlJw5.png" alt="Sản phẩm">
-                            <span class="quantity-badge">1</span>
-                        </div>
-                        <div class="product-info">
-                            <p class="product-name">Giày Đá Bóng Dành Cho Sân Cỏ Nhân Tạo Nam Adidas F50 League Tf</p>
-                            <p class="product-variant">ĐEN / US 7.5</p>
-                        </div>
-                        <p class="product-price">2.400.000 ₫</p>
-                    </div>
+                <div id="checkoutProductList" class="product-list">
+                    
                 </div>
 
                 <div class="coupon-section">
@@ -177,66 +167,108 @@
     </div>
 
     <script>
-        document.getElementById('orderBtn').addEventListener('click', function () {
-            // Lấy giá trị từ các trường
-            const fields = {
-                email: document.getElementById('email'),
-                name: document.getElementById('name'),
-                lastName: document.getElementById('lastName'),
-                address: document.getElementById('address'),
-                city: document.getElementById('city'),
-                district: document.getElementById('district'),
-                ward: document.getElementById('ward'),
-                phone: document.getElementById('phone'),
-                // Giả định note không bắt buộc
-                note: document.getElementById('note') || { value: '' }
-            };
+        
+    // Hàm render giỏ hàng lên mục "Đơn hàng"
+    function renderCheckoutCart() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const container = document.getElementById("checkoutProductList");
+        let total = 0;
 
-            // Reset lỗi
-            document.querySelectorAll('.error-text').forEach(e => e.textContent = '');
-            document.querySelectorAll('input, select').forEach(el => el.classList.remove('error-border'));
+        if (!container) return;
 
-            let valid = true;
+        if (cart.length === 0) {
+            container.innerHTML = `<p>Giỏ hàng trống</p>`;
+            document.querySelector(".summary-line .amount").textContent = "0 ₫";
+            document.querySelector(".total-final-amount").textContent = "0 ₫";
+            return;
+        }
 
-            // KIỂM TRA BẮT BUỘC (Logic kiểm tra như lần trước)
-            const requiredFields = ['name', 'lastName', 'address', 'city', 'district', 'ward', 'phone'];
+        let html = "";
+        cart.forEach(item => {
+            const itemTotal = item.price * item.qty;
+            total += itemTotal;
 
-            for (const key of requiredFields) {
-                const field = fields[key];
-                if (field && (field.value.trim() === '' || field.value.includes('Chọn'))) {
-                    document.getElementById(`err-${key}`).textContent = 'Trường này là bắt buộc';
-                    field.classList.add('error-border');
-                    valid = false;
-                }
-            }
+            html += `
+                <div class="product">
+                    <div class="product-image-container">
+                        <img src="${item.image}" alt="${item.name}">
+                        <span class="quantity-badge">${item.qty}</span>
+                    </div>
+                    <div class="product-info">
+                        <p class="product-name">${item.name}</p>
+                        <p class="product-variant">${item.variant}</p>
+                    </div>
+                    <p class="product-price">${itemTotal.toLocaleString()} ₫</p>
+                </div>
+            `;
+        });
 
-            // Kiểm tra SĐT
-            if (fields.phone.value.trim() !== '' && !/^(0|\+84)[0-9]{9,10}$/.test(fields.phone.value.trim())) {
-                document.getElementById('err-phone').textContent = '⚠️ Số điện thoại không hợp lệ.';
-                fields.phone.classList.add('error-border');
+        container.innerHTML = html;
+
+        // Cập nhật tổng tiền
+        document.querySelector(".summary-line .amount").textContent = total.toLocaleString() + " ₫";
+        document.querySelector(".total-final-amount").textContent = total.toLocaleString() + " ₫";
+    }
+
+    // Khi trang load, render luôn giỏ hàng
+    document.addEventListener("DOMContentLoaded", function() {
+        renderCheckoutCart();
+    });
+
+    // Xử lý nút Chọn hình thức thanh toán
+    document.getElementById('orderBtn').addEventListener('click', function (e) {
+        e.preventDefault(); // ngăn link mặc định
+
+        const fields = {
+            email: document.getElementById('email'),
+            name: document.getElementById('name'),
+            lastName: document.getElementById('lastName'),
+            address: document.getElementById('address'),
+            city: document.getElementById('city'),
+            district: document.getElementById('district'),
+            ward: document.getElementById('ward'),
+            phone: document.getElementById('phone'),
+            note: document.getElementById('note') || { value: '' }
+        };
+
+        // Reset lỗi
+        document.querySelectorAll('.error-text').forEach(e => e.textContent = '');
+        document.querySelectorAll('input, select').forEach(el => el.classList.remove('error-border'));
+
+        let valid = true;
+        const requiredFields = ['name', 'lastName', 'address', 'city', 'district', 'ward', 'phone'];
+
+        for (const key of requiredFields) {
+            const field = fields[key];
+            if (field && (field.value.trim() === '' || field.value.includes('Chọn'))) {
+                document.getElementById(`err-${key}`).textContent = 'Trường này là bắt buộc';
+                field.classList.add('error-border');
                 valid = false;
             }
+        }
 
-            // LƯU VÀ CHUYỂN TRANG
-            if (valid) {
-                // Tạo đối tượng chứa thông tin giao hàng
-                const shippingInfo = {
-                    name: fields.name.value.trim() + ' ' + fields.lastName.value.trim(),
-                    email: fields.email.value.trim(),
-                    phone: fields.phone.value.trim(),
-                    address: fields.address.value.trim(),
-                    // Kết hợp Thành phố, Quận/Huyện, Phường/Xã vào một chuỗi address city
-                    city: fields.city.value.trim() + ', ' + fields.district.value.trim() + ', ' + fields.ward.value.trim(),
-                    note: fields.note.value.trim(),
-                    // THÊM: Thông tin vận chuyển mặc định để hiển thị trên trang Thanh toán
-                    shipping: "Phí vận chuyển - MIỄN PHÍ"
-                };
-                localStorage.setItem("shippingInfo", JSON.stringify(shippingInfo));
+        if (fields.phone.value.trim() !== '' && !/^(0|\+84)[0-9]{9,10}$/.test(fields.phone.value.trim())) {
+            document.getElementById('err-phone').textContent = '⚠️ Số điện thoại không hợp lệ.';
+            fields.phone.classList.add('error-border');
+            valid = false;
+        }
 
-                // Chuyển sang trang Thanh toán
-                window.location.href = "http://localhost:56486/Home/Pay";
-            }
-        });
+        if (valid) {
+            const shippingInfo = {
+                name: fields.lastName.value.trim() + ' ' + fields.name.value.trim(),
+                email: fields.email.value.trim(),
+                phone: fields.phone.value.trim(),
+                address: fields.address.value.trim(),
+                city: fields.city.value.trim() + ', ' + fields.district.value.trim() + ', ' + fields.ward.value.trim(),
+                note: fields.note.value.trim(),
+                shipping: "Phí vận chuyển - MIỄN PHÍ"
+            };
+            localStorage.setItem("shippingInfo", JSON.stringify(shippingInfo));
+
+            // Chuyển sang trang Payment_List
+            window.location.href = '@Url.Action("Payment_List", "Home")';
+        }
+    });
     </script>
 </body>
 </html>

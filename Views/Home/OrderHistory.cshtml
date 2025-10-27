@@ -31,9 +31,10 @@
                     <tr>
                         <th>Đơn hàng</th>
                         <th>Ngày đặt hàng</th>
-                        <th>Trạng thái thanh toán</th>
-                        <th>Trạng thái vận chuyển</th>
+                        <th>Phương thức thanh toán</th>
+                        <th>Trạng thái</th>
                         <th>Tổng cộng</th>
+                        <th>Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -201,6 +202,71 @@
                     alert('Địa chỉ đã được lưu thành công!');
                 });
             }
+
+            //Lưu lịch sử đặt hàng
+            const tbody = document.querySelector("table tbody");
+            const emptyState = document.querySelector(".content-section#orders-content .empty-state");
+            const ordersHistory = JSON.parse(localStorage.getItem("ordersHistory")) || [];
+
+            function renderOrders() {
+                if (ordersHistory.length === 0) {
+                    tbody.innerHTML = `<tr>
+            <td colspan="6" style="text-align:center; color:mediumblue; font-weight:700">Không có đơn hàng</td>
+        </tr>`;
+                    emptyState.style.display = "block";
+                } else {
+                    tbody.innerHTML = "";
+                    emptyState.style.display = "none";
+
+                    ordersHistory.slice().reverse().forEach((order, index) => {
+                        tbody.innerHTML += `
+            <tr>
+                <td>${order.id}</td>
+                <td>${order.date}</td>
+                <td>${order.paymentMethod}</td>
+                <td>
+                    <p style="
+                        background-color: yellow;
+                        border-radius: 10px;
+                        padding: 2px 8px;
+                        text-align: center;
+                        display: inline-block;">
+                        Đang xử lý
+                    </p>
+                </td>
+                <td>${order.total.toLocaleString()} ₫</td>
+                <td>
+                    <button class="delete-btn" data-index="${index}">Xóa</button>
+                    <button class="detail-btn" data-index="${index}">Chi tiết</button>
+                </td>
+            </tr>
+            `;
+                    });
+
+                    // Gắn sự kiện xóa
+                    document.querySelectorAll(".delete-btn").forEach(btn => {
+                        btn.addEventListener("click", function () {
+                            const idx = parseInt(this.getAttribute("data-index"));
+                            // Xóa đơn hàng
+                            ordersHistory.splice(ordersHistory.length - 1 - idx, 1); // vì render ngược
+                            localStorage.setItem("ordersHistory", JSON.stringify(ordersHistory));
+                            renderOrders(); // render lại
+                        });
+                    });
+                    // Gắn xem chi tiết hóa đơn
+                    document.querySelectorAll(".detail-btn").forEach(btn => {
+                        btn.addEventListener("click", function () {
+                            const idx = parseInt(this.getAttribute("data-index"));
+                            const order = ordersHistory[ordersHistory.length - 1 - idx];
+                            window.location.href = `@Url.Action("OrderDetail","Home")?id=${order.id}`;
+                        });
+                    });
+
+                }
+            }
+
+            // Gọi render lúc đầu
+            renderOrders();
         });
     </script>
 </body>

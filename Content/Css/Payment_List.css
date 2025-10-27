@@ -337,6 +337,52 @@ main {
     font-weight: 700;
     color: #002b5c;
 }
+#successPopup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+    #successPopup .popup-content {
+        background: #fff;
+        padding: 30px;
+        border-radius: 6px;
+        max-width: 400px;
+        text-align: center;
+        position: relative;
+    }
+
+    #successPopup button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        color: #fff;
+    }
+
+    #successPopup #goHomeBtn {
+        background: #007bff;
+    }
+
+    #successPopup #viewOrderBtn {
+        background: #28a745;
+    }
+
+    #successPopup #closePopup {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
 
 /* Helper for image placeholders (not in original file, but required for the example) */
 img[alt="Sản phẩm"], .card-logos img, .card-logos-small img {

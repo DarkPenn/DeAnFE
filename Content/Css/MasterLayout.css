@@ -1,34 +1,35 @@
-﻿* {
+﻿/* ================= RESET ================= */
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-a{
-    text-decoration:none;
-}
-html, body {
-    width: 100%;
     max-width: 100%;
-    overflow-x: hidden; /* Ẩn thanh cuộn ngang */
-}
-header, footer {
-    width: 100%;
-    display: block;
-    margin: 0;
-    padding: 0;
 }
 
-header {
+html, body {
+    width: 100%;
+    overflow-x: hidden;
     font-family: Arial, sans-serif;
 }
-/* Top green bar */
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ================= HEADER ================= */
+header {
+    width: 100%;
+}
+
+/* --- Top green bar --- */
 .top-bar {
     width: 100%;
     height: 40px;
     background-color: lawngreen;
     overflow: hidden;
     position: relative;
-    font-family: Arial, sans-serif;
+    font-size: 14px;
 }
 
 .topbar-content {
@@ -41,10 +42,9 @@ header {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* canh giữa */
+    transform: translate(-50%, -50%);
     width: 100%;
     text-align: center;
-    font-size: 14px;
     opacity: 0;
     transition: opacity 0.6s ease;
 }
@@ -53,7 +53,6 @@ header {
         opacity: 1;
     }
 
-/* Nút prev/next */
 .topbar-btn {
     position: absolute;
     top: 50%;
@@ -78,7 +77,6 @@ header {
         color: #7ad400;
     }
 
-/* Link "Xem ngay" */
 .topbar-link {
     display: inline-block;
     margin-left: 10px;
@@ -86,9 +84,9 @@ header {
     color: #fff;
     padding: 4px 10px;
     border-radius: 4px;
-    text-decoration: none;
     font-weight: bold;
     font-size: 13px;
+    transition: transform 0.2s;
 }
 
     .topbar-link:hover {
@@ -96,46 +94,46 @@ header {
         transform: scale(1.05);
     }
 
-/* Main header */
-
+/* --- Main header --- */
 .main-header {
-    background-color: #001e36;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     width: 100%;
-    max-width: 1400px; 
-    margin: 0 auto;
-    padding-left: 10px;
-    padding-right: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #001e36;
+    padding: 10px 20px;
+    box-sizing: border-box;
 }
 
-    .main-header .logo img {
-        height: 100px !important;
-        width: auto !important; 
-        display: block;
-    }
+.logo img {
+    height: auto;
+    max-height: 100px;
+    width: auto;
+}
 
+/* Navigation menu */
 .nav-menu ul {
-    list-style: none;
     display: flex;
-    gap: 5px;
-    margin: 0;
-    padding: 0;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    list-style: none;
 }
 
 .nav-menu a {
     color: white;
-    text-decoration: none;
     font-weight: bold;
+    display: block;
+    padding: 8px 10px;
+    transition: color 0.3s;
 }
 
     .nav-menu a:hover, .nav-menu a.highlight {
         color: #7ad400;
     }
-/* Search box */
 
+/* Search box */
 .search-box {
     display: flex;
     background-color: #34495e;
@@ -159,8 +157,8 @@ header {
         color: white;
         cursor: pointer;
     }
-/* Icons */
 
+/* Icons */
 .icons {
     display: flex;
     align-items: center;
@@ -179,42 +177,34 @@ header {
     }
 
 /* Info bar */
-
 .info-bar {
+    width: 100%;
     background-color: #f7f4ef;
     color: #333;
-    text-align: center;
-    padding: 6px 0;
-    font-size: 17px;
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 40px;
-}
-/* RESET */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    padding: 6px 10px;
+    flex-wrap: wrap;
+    font-size: 17px;
 }
 
+/* ================= FOOTER ================= */
 .supersports-footer {
+    width: 100%;
     background-color: #fff;
     color: #0a1a2f;
     border-top: 1px solid #ddd;
-    font-family: Arial, sans-serif;
-    width: 100%;
-    max-width: 1200px; /* hoặc 1400px tùy giao diện */
-    margin: 0 auto;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 20px 20px;
+    box-sizing: border-box;
 }
 
 .footer-container {
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
-    gap: 30px;
+    justify-content: space-between;
+    gap: 20px;
 }
 
 .footer-column {
@@ -243,6 +233,7 @@ header {
         list-style: none;
     }
 
+/* Payment icons */
 .payment-icons {
     display: flex;
     flex-wrap: wrap;
@@ -251,202 +242,46 @@ header {
 }
 
     .payment-icons img {
-        height: 28px;
+        height: auto;
+        max-width: 100%;
     }
 
+/* Certifications */
 .certifications img {
     display: block;
-    width: 150px;
+    width: auto;
+    max-width: 150px;
     margin-bottom: 10px;
 }
 
-/* Ẩn nút menu trên PC */
-.menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 30px;
-    cursor: pointer;
-    padding: 6px;
-    margin-right: 10px;
-}
+/* ================= MEDIA QUERIES ================= */
+
 /* Tablet */
 @media (max-width: 992px) {
     .main-header {
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: center;
         padding: 10px 15px;
     }
 
-    /* Hiện nút menu */
-    .menu-toggle {
-        display: block;
-        order: 1;
-    }
-
-    .logo {
-        order: 2;
-        flex: 1;
-        text-align: center;
-    }
-
-    .search-box,
-    .icons {
-        order: 3;
-        width: 100%;
-        justify-content: center;
-        margin-top: 10px;
-    }
-
-    /* Menu chính ẩn mặc định */
-    .nav-menu {
-        display: none;
-        width: 100%;
-        background-color: #001e36;
-        text-align: center;
-        padding: 10px 0;
-        order: 4;
-    }
-
-        /* Khi bật menu */
-        .nav-menu.active {
-            display: block;
-            animation: fadeIn 0.3s ease-in-out;
-        }
-
-        .nav-menu ul {
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .nav-menu a {
-            display: block;
-            padding: 8px 0;
-            font-size: 16px;
-        }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-}
-@media (max-width: 900px) {
-    .main-header {
-        position: relative;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px;
-        overflow: visible;
-        z-index: 10; /* giữ header trên mọi thứ khác */
-    }
-
-        /* Logo và icon nằm trên cùng */
-        .main-header .logo,
-        .main-header .icons,
-        .menu-toggle {
-            position: relative;
-            z-index: 30; /* cao nhất */
-        }
-
-    /* Nav-menu nằm dưới */
-    .nav-menu {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: #001e36;
-        text-align: center;
-        z-index: 5; /* thấp hơn logo & icon */
-        padding: 12px 0;
-        transition: all 0.3s ease;
-    }
-
-        /* Ẩn mặc định */
-        .nav-menu:not(.active) {
-            display: none;
-        }
-
-        /* Khi bật menu, xổ xuống bên dưới header */
-        .nav-menu.active {
-            display: block;
-            animation: fadeDown 0.3s ease-in-out;
-        }
-
-    @keyframes fadeDown {
-        from {
-            opacity: 0;
-            transform: translateY(-8px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
     .nav-menu ul {
-        display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 6px;
     }
 
     .nav-menu a {
-        display: block;
+        font-size: 16px;
         padding: 8px 0;
-        color: white;
-    }
-
-        .nav-menu a:hover {
-            color: #7ad400;
-        }
-}
-
-/* Giảm padding khi màn hình nhỏ */
-@media (max-width: 768px) {
-    .main-header,
-    .supersports-footer {
-        padding-left: 10px;
-        padding-right: 10px;
     }
 }
 
-/* Các phần tử trong header không cho tràn ngang */
-.main-header * {
-    max-width: 100%;
-    box-sizing: border-box;
-}
-
-.supersports-footer * {
-    max-width: 100%;
-    box-sizing: border-box;
-}
 /* Mobile */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     .main-header {
         flex-direction: column;
         align-items: center;
-        padding: 10px;
-        text-align: center;
     }
 
-        .main-header .logo img {
-            height: 60px !important;
-        }
-
-    .nav-menu ul {
-        flex-direction: column;
-        align-items: center;
-        gap: 6px;
+    .logo img {
+        max-height: 80px;
     }
 
     .search-box {
@@ -468,177 +303,56 @@ header {
 
     .info-bar {
         flex-direction: column;
+        gap: 5px;
         font-size: 14px;
-        gap: 5px;
-    }
-
-    footer .footer-container {
-        flex-direction: column;
-        text-align: center;
-        align-items: center;
-    }
-
-    .footer-column {
-        min-width: 100%;
-    }
-
-    .payment-icons img,
-    .certifications img {
-        width: auto;
-        max-width: 120px;
-        height: auto;
-    }
-}
-
-/* Hình ảnh tự co */
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-@media (max-width: 400px) {
-
-    html, body {
-        width: 100%;
-        max-width: 100%;
-        overflow-x: hidden !important;
-    }
-
-    header {
-        width: 100%;
-        max-width: 100%;
-        overflow-x: hidden;
-    }
-
-    .main-header {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 8px;
-        gap: 6px;
-        width: 100%;
-        text-align: center;
-    }
-
-        .main-header .logo img {
-            height: auto !important;
-            max-height: 50px;
-            width: auto;
-        }
-
-    .menu-toggle {
-        align-self: flex-start;
-        font-size: 26px;
-        margin-bottom: 4px;
-    }
-
-    .search-box {
-        width: 90%;
-        max-width: 280px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 5px;
-    }
-
-        .search-box input {
-            width: 100%;
-            font-size: 13px;
-            text-align: center;
-        }
-
-    .icons {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px;
-        margin-top: 5px;
-    }
-
-        .icons .material-symbols-outlined {
-            font-size: 22px;
-        }
-
-        .icons .flag {
-            width: 20px;
-            height: 14px;
-        }
-
-    .nav-menu,
-    .nav-menu.active
-    {
-       display: none !important;
-    }
-
-    .info-bar {
-        flex-direction: column;
-        align-items: center;
-        font-size: 13px;
-        gap: 5px;
-        padding: 8px 0;
-    }
-
-    .supersports-footer {
-        padding: 20px 10px; 
     }
 
     .footer-container {
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        gap: 15px;
         text-align: center;
-        width: 100%;
-        max-width: 100%;
-        overflow: hidden;
     }
 
     .footer-column {
         width: 100%;
-        max-width: 100%;
-        min-width: auto;
-        padding: 0 5px;
+        padding: 5px 0;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 400px) {
+    .main-header .logo img {
+        max-height: 60px;
     }
 
-        .footer-column h4 {
-            font-size: 13px;
-        }
-
-        .footer-column p,
-        .footer-column a,
-        .footer-column li {
-            font-size: 12px;
-            word-wrap: break-word; /* chống tràn chữ dài */
-        }
-
-    .payment-icons {
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 5px;
-        width: 100%;
+    .search-box input {
+        font-size: 13px;
     }
 
-        .payment-icons img {
-            max-width: 80px;
-            height: auto;
-        }
+    .icons .material-symbols-outlined {
+        font-size: 22px;
+    }
+
+    .icons .flag {
+        width: 20px;
+        height: 14px;
+    }
+
+    .footer-column h4 {
+        font-size: 13px;
+    }
+
+    .footer-column p, .footer-column a, .footer-column li {
+        font-size: 12px;
+        word-wrap: break-word;
+    }
+
+    .payment-icons img {
+        max-width: 80px;
+    }
 
     .certifications img {
         max-width: 100px;
-        height: auto;
-        margin: 0 auto 10px;
+        margin-bottom: 10px;
     }
-}
-/* Fix nav-menu chiếm chỗ trên mobile */
-@media (max-width: 400px) {
-  .nav-menu,
-  .nav-menu.active {
-    display: none !important;
-    visibility: hidden !important;
-    height: 0 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    overflow: hidden !important;
-  }
 }

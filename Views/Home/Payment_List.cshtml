@@ -14,9 +14,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap">
 </head>
 <body>
-
-
-
     <!-- Checkout -->
     <main>
         <div class="left-section">
@@ -63,7 +60,7 @@
                     </label>
 
                     <label class="payment-option">
-                        <input type="radio" name="payment" value="wallet">
+                        <input type="radio" name="payment" value="zalopay">
                         <span class="payment-name">Ví ZaloPay</span>
                         <div class="card-logos-small">
                             <img src="~/Content/Images/Zalo.jpg" alt="ZaloPay" />
@@ -108,15 +105,7 @@
             <h3>Đơn hàng</h3>
             <div class="product-list">
                 <div class="product">
-                    <div class="product-image-container">
-                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/1f6cba9a-f23a-4b1e-8a09-0c75e3b6509a/pegasus-plus-mens-road-running-shoes-qZlJw5.png" alt="Sản phẩm">
-                        <span class="quantity-badge">1</span>
-                    </div>
-                    <div class="product-info">
-                        <p class="product-name">Giày Đá Bóng Dành Cho Sân Cỏ Nhân Tạo Nam Adidas F50 League Tf</p>
-                        <p class="product-variant">ĐEN / US 7.5</p>
-                    </div>
-                    <p class="product-price">2.400.000 ₫</p>
+
                 </div>
             </div>
 
@@ -143,7 +132,18 @@
             </div>
         </div>
     </main>
-
+    <!-- Thêm vào body, ngay trước </body> -->
+    <div id="successPopup" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:1000;">
+        <div style="background:#fff; padding:30px; border-radius:6px; max-width:400px; text-align:center; position:relative;">
+            <h2 style="color:#002b5c; margin-bottom:15px;">✅ Thanh toán thành công!</h2>
+            <p style="margin-bottom:25px;">Cảm ơn bạn đã đặt hàng. Bạn có thể tiếp tục mua sắm hoặc xem đơn hàng của mình.</p>
+            <div style="display:flex; gap:15px; justify-content:center;">
+                <button id="goHomeBtn" style="padding:10px 20px; background:#007bff; color:#fff; border:none; border-radius:4px; cursor:pointer;">Tiếp tục mua sắm</button>
+                <button id="viewOrderBtn" style="padding:10px 20px; background:#28a745; color:#fff; border:none; border-radius:4px; cursor:pointer;">Xem đơn hàng</button>
+            </div>
+            <span id="closePopup" style="position:absolute; top:10px; right:15px; cursor:pointer; font-weight:bold;">✕</span>
+        </div>
+    </div>
     <!-- Footer -->
     <!-- ==== JAVASCRIPT ==== -->
     <script>
@@ -167,13 +167,13 @@
             <div class="info-row">
                 <span class="info-label">Liên hệ</span>
                 <span class="info-value">${contactEmail}</span>
-                <a href="http://localhost:56486/Home/Oder" class="change-link">Thay đổi</a>
+                <a href="@Url.Action("DeliverLocate","Home")" class="change-link">Thay đổi</a>
             </div>
             <hr style="margin: 10px 0; border: none; border-top: 1px solid #eee;">
             <div class="info-row">
                 <span class="info-label">Vận chuyển tới</span>
                 <span class="info-value">${shippingAddressLine}, ${shippingCityDetail}</span>
-                <a href="http://localhost:56486/Home/Oder" class="change-link">Thay đổi</a>
+                <a href="@Url.Action("DeliverLocate","Home")" class="change-link">Thay đổi</a>
             </div>
             <hr style="margin: 10px 0; border: none; border-top: 1px solid #eee;">
             <div class="info-row">
@@ -207,7 +207,7 @@
 
             switch (selectedPayment.value) {
                 case 'onepay':
-                    paymentUrl = '@Url.Action("Payment_Confirm","Home")';
+                    paymentUrl = '#';
                     break;
                 case 'installment':
                     paymentUrl = '#';
@@ -233,9 +233,116 @@
                 window.location.href = paymentUrl;
             }
 
-            // Xóa thông tin giao hàng sau khi đặt hàng/chuyển hướng thành công
-            localStorage.removeItem("shippingInfo");
         });
+        // --- HIỂN THỊ GIỎ HÀNG TRONG ĐƠN HÀNG ---
+        function renderOrderCart() {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const container = document.querySelector(".right-section .product-list");
+            let total = 0;
+
+            if (!container) return;
+
+            if (cart.length === 0) {
+                container.innerHTML = `<p>Giỏ hàng trống</p>`;
+                document.querySelectorAll(".summary-line .amount")[0].textContent = "0 ₫";
+                document.querySelector(".total-final-amount").textContent = "0 ₫";
+                return;
+            }
+
+            let html = "";
+            cart.forEach(item => {
+                const itemTotal = item.price * item.qty;
+                total += itemTotal;
+
+                html += `
+            <div class="product">
+                <div class="product-image-container">
+                    <img src="${item.image}" alt="${item.name}">
+                    <span class="quantity-badge">${item.qty}</span>
+                </div>
+                <div class="product-info">
+                    <p class="product-name">${item.name}</p>
+                    <p class="product-variant">${item.variant}</p>
+                </div>
+                <p class="product-price">${itemTotal.toLocaleString()} ₫</p>
+            </div>
+        `;
+            });
+
+            container.innerHTML = html;
+
+            // Cập nhật tổng tiền
+            document.querySelectorAll(".summary-line .amount")[0].textContent = total.toLocaleString() + " ₫";
+            document.querySelector(".total-final-amount").textContent = total.toLocaleString() + " ₫";
+        }
+
+        // Khi trang load, render luôn giỏ hàng
+        document.addEventListener("DOMContentLoaded", function () {
+            renderOrderCart();
+        });
+
+document.getElementById("confirmBtn").addEventListener("click", () => {
+    const selectedPayment = document.querySelector('input[name="payment"]:checked');
+    const termsChecked = document.getElementById("terms").checked;
+
+    if (!selectedPayment) {
+        alert("Vui lòng chọn phương thức thanh toán.");
+        return;
+    }
+    if (!termsChecked) {
+        alert("Vui lòng đồng ý với Điều khoản và Chính sách trước khi thanh toán.");
+        return;
+    }
+
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    if (cart.length === 0) {
+        alert("Giỏ hàng trống!");
+        return;
+    }
+
+    const shippingInfo = JSON.parse(localStorage.getItem("shippingInfo")) || {};
+    const totalAmount = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+
+    // Tạo đơn hàng mới
+    const newOrder = {
+        id: 'ORD' + Date.now(),
+        date: new Date().toLocaleString(),
+        items: cart,
+        total: totalAmount,
+        paymentMethod: selectedPayment.value,
+        customerName: shippingInfo.fullName || "Chưa cập nhật",
+        customerPhone: shippingInfo.phone || "Chưa cập nhật",
+        customerAddress: shippingInfo.address || "Chưa cập nhật"
+    };
+
+    // Lưu vào lịch sử đơn hàng
+    const ordersHistory = JSON.parse(localStorage.getItem("ordersHistory")) || [];
+    ordersHistory.push(newOrder);
+    localStorage.setItem("ordersHistory", JSON.stringify(ordersHistory));
+
+    // Xóa giỏ hàng
+    localStorage.removeItem("cart");
+
+    // Hiển thị popup thành công
+    const popup = document.getElementById("successPopup");
+    popup.style.display = "flex";
+
+    // Nút đóng popup
+    document.getElementById("closePopup").onclick = () => {
+        popup.style.display = "none";
+    };
+
+    // Nút tiếp tục mua sắm
+    document.getElementById("goHomeBtn").onclick = () => {
+        window.location.href = '@Url.Action("Category","Home")';
+    };
+
+    // Nút xem đơn hàng
+    document.getElementById("viewOrderBtn").onclick = () => {
+        window.location.href = '@Url.Action("OrderHistory", "Home")';
+    };
+});
+
     </script>
 
 

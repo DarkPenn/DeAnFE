@@ -143,12 +143,14 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Css\Cart.css" />
     <Content Include="Content\Css\Category.css" />
     <Content Include="Content\Css\DeliverLocate.css" />
     <Content Include="Content\Css\DetailProduct.css" />
     <Content Include="Content\Css\Home.css" />
     <Content Include="Content\Css\Login.css" />
     <Content Include="Content\Css\MasterLayout.css" />
+    <Content Include="Content\Css\OrderDetail.css" />
     <Content Include="Content\Css\OrderHistory.css" />
     <Content Include="Content\Css\Payment_Confirm.css" />
     <Content Include="Content\Css\Payment_List.css" />
@@ -325,6 +327,7 @@
     <Content Include="Views\Home\DeliverLocate.cshtml" />
     <Content Include="Views\Home\OrderHistory.cshtml" />
     <Content Include="Views\Home\Category.cshtml" />
+    <Content Include="Views\Home\OrderDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,8 +1,7 @@
-﻿
-
-@{
-    ViewBag.Title = "Giỏ hàng của bạn - Supersports Vietnam ";
+﻿@section styles {
+    <link rel="stylesheet" href="~/Content/Css/Cart.css" />
 }
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -10,501 +9,238 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giỏ hàng - SuperSports</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
 
-        :root {
-            --primary: #e53935;
-            --secondary: #1e3a8a;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --gray: #6c757d;
-            --success: #28a745;
-        }
-
-        body {
-            background-color: #f5f5f5;
-            color: var(--dark);
-            line-height: 1.6;
-            padding: 0;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .empty-cart {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            padding: 60px 40px;
-            text-align: center;
-            margin: 30px 0;
-        }
-
-        .empty-cart-icon {
-            font-size: 80px;
-            color: #ddd;
-            margin-bottom: 20px;
-        }
-
-        .empty-cart h2 {
-            font-size: 28px;
-            margin-bottom: 15px;
-            color: var(--dark);
-        }
-
-        .empty-cart p {
-            color: var(--gray);
-            margin-bottom: 30px;
-            font-size: 16px;
-        }
-
-
-
-
-        .divider {
-            height: 1px;
-            background: #eee;
-            margin: 40px 0;
-        }
-
-
-        .recommendations {
-            margin: 40px 0;
-        }
-
-        .section-title {
-            font-size: 24px;
-            margin-bottom: 25px;
-            color: var(--secondary);
-            text-align: center;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-            .product-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            }
-
-        .product-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .product-info {
-            padding: 20px;
-        }
-
-        .product-name {
-            font-size: 16px;
-            margin-bottom: 10px;
-            color: var(--dark);
-            height: 40px;
-            overflow: hidden;
-        }
-
-        .product-price {
-            font-size: 18px;
-            font-weight: bold;
-            color: var(--primary);
-            margin-bottom: 15px;
-        }
-
-        .size-options {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
-
-        .size-option {
-            padding: 5px 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-            .size-option:hover {
-                border-color: var(--primary);
-            }
-
-            .size-option.selected {
-                background: var(--primary);
-                color: white;
-                border-color: var(--primary);
-            }
-
-        .add-to-cart-btn {
-            width: 100%;
-            padding: 10px;
-            background: var(--secondary);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background 0.3s;
-        }
-
-            .add-to-cart-btn:hover {
-                background: #152c6e;
-            }
-
-        media (max-width: 992px) {
-            .products-grid
-        {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        }
-
-        media (max-width: 576px) {
-            .products-grid
-
-        {
-            grid-template-columns: 1fr;
-        }
-
-        }
-
-        .empty-cart {
-            padding: 40px 20px;
-        }
-
-        body {
-            padding: 0;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        :root {
-            --primary: #e53935;
-            --secondary: #1e3a8a;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --gray: #6c757d;
-            --success: #28a745;
-        }
-
-        body {
-            background-color: #f5f5f5;
-            color: var(--dark);
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .empty-cart {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            padding: 60px 40px;
-            text-align: center;
-            margin: 30px 0;
-        }
-
-        .empty-cart-icon {
-            font-size: 80px;
-            color: #ddd;
-            margin-bottom: 20px;
-        }
-
-        .empty-cart h2 {
-            font-size: 28px;
-            margin-bottom: 15px;
-            color: var(--dark);
-        }
-
-        .empty-cart p {
-            color: var(--gray);
-            margin-bottom: 30px;
-            font-size: 16px;
-        }
-
-
-
-
-        .divider {
-            height: 1px;
-            background: #eee;
-            margin: 40px 0;
-        }
-
-
-        .recommendations {
-            margin: 40px 0;
-        }
-
-        .section-title {
-            font-size: 24px;
-            margin-bottom: 25px;
-            color: var(--secondary);
-            text-align: center;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-            .product-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            }
-
-        .product-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .product-info {
-            padding: 20px;
-        }
-
-        .product-name {
-            font-size: 16px;
-            margin-bottom: 10px;
-            color: var(--dark);
-            height: 40px;
-            overflow: hidden;
-        }
-
-        .product-price {
-            font-size: 18px;
-            font-weight: bold;
-            color: var(--primary);
-            margin-bottom: 15px;
-        }
-
-        .size-options {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
-
-        .size-option {
-            padding: 5px 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-            .size-option:hover {
-                border-color: var(--primary);
-            }
-
-            .size-option.selected {
-                background: var(--primary);
-                color: white;
-                border-color: var(--primary);
-            }
-
-        .add-to-cart-btn {
-            width: 100%;
-            padding: 10px;
-            background: var(--secondary);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background 0.3s;
-        }
-
-            .add-to-cart-btn:hover {
-                background: #152c6e;
-            }
-
-        media (max-width: 992px) {
-            .products-grid
-
-        {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        }
-
-        media (max-width: 576px) {
-            .products-grid
-
-        {
-            grid-template-columns: 1fr;
-        }
-
-        .empty-cart {
-            padding: 40px 20px;
-        }
-
-
-    </style>
 </head>
 <body>
-
     <main class="container">
         <div class="breadcrumb">
             <a href="#">Trang chủ</a> > <a href="#">Giỏ hàng</a>
         </div>
-
-        <!-- Khung giỏ hàng trống -->
-        <section id="emptyCart" class="empty-cart" style="display:none">
-            <i class="fa-solid fa-cart-shopping empty-cart-icon"></i>
-            <h2>Giỏ hàng trống!</h2>
-            <p>Hãy tiếp tục mua sắm để tìm sản phẩm bạn yêu thích.</p>
-        </section>
-
-        <!-- Khung danh sách sản phẩm -->
-        <section id="cartSection" style="display:none">
-            <div id="cartItems"></div>
-            <div id="cartTotal" style="margin-top:20px;text-align:right"></div>
-        </section>
     </main>
 
+    <main class="container">
 
+        <!-- Cart Items Section -->
+        <div class="cart-items">
+            <div id="cartItems">
+                <!-- Cart items will be rendered here -->
+            </div>
+        </div>
+
+        <!-- Cart Summary Section -->
+        <div class="cart-summary">
+            <div class="voucher-banner">
+                <a href="@Url.Action("Register_Login","Home")"><h3>ĐĂNG KÝ NGAY | NHẬN NGAY</h3>
+                <p>VOUCHER 150.000 VND CHO ĐƠN HÀNG ĐẦU TIÊN</p></a>
+            </div>
+
+            <div class="summary-row">
+                <span id="itemCount">(0) sản phẩm</span>
+                <span id="subtotal">0₫</span>
+            </div>
+
+            <div class="summary-row">
+                <span>Giảm giá</span>
+                <span>Áp dụng tại trang thanh toán</span>
+            </div>
+
+            <div class="summary-row">
+                <span>Phí vận chuyển</span>
+                <span>Miễn phí</span>
+            </div>
+
+            <div class="summary-row total">
+                <span>Thành tiền:</span>
+                <span id="totalAmount">0₫</span>
+            </div>
+
+            <p class="note">*Phí ship và coupon áp dụng tại trang thanh toán</p>
+
+            <button class="checkout-btn" onclick="checkout()">
+                THANH TOÁN
+            </button>
+
+            <div class="payment-methods">
+                <p>Thanh toán nhanh chóng với:</p>
+                <div class="payment-icons">
+                    <div class="payment-icon">VNPay</div>
+                    <div class="payment-icon">Momo</div>
+                    <div class="payment-icon">ZaloPay</div>
+                    <div class="payment-icon">Credit</div>
+                </div>
+            </div>
+        </div>
+    </main>
 
     <script>
+        // Sample product data matching the image
+        const sampleProduct = {
+            id: 1,
+            brand: "NIKE",
+            name: "Giày Chạy Bộ Nữ Nike Vomero 18",
+            variant: "XANH MINT / US 6",
+            price: 4259000,
+            image: "https://via.placeholder.com/300x300/87CEEB/FFFFFF?text=Nike+Vomero+18",
+            color: "Xanh Mint",
+            size: "US 6",
+            qty: 1
+        };
+
+        // Initialize cart
         document.addEventListener("DOMContentLoaded", function () {
             let cart = JSON.parse(localStorage.getItem("cart")) || [];
-            let container = document.getElementById("cartItems");
-            let totalBox = document.getElementById("cartTotal");
-            let emptyCart = document.getElementById("emptyCart");
-            let cartSection = document.getElementById("cartSection");
 
-            function renderCart() {
-                if (!cart || cart.length === 0) {
-                    emptyCart.style.display = "block";
-                    cartSection.style.display = "none";
-                    return;
-                }
-
-                emptyCart.style.display = "none";
-                cartSection.style.display = "block";
-
-                let html = "";
-                let total = 0;
-
-                cart.forEach((item, index) => {
-                    let subTotal = item.qty * item.price;
-                    total += subTotal;
-
-                    html += `
-                <div class="cart-item" style="display:flex;align-items:center;margin:10px 0;border-bottom:1px solid #ddd;padding:10px 0">
-                    <img src="${item.image}" width="80" style="margin-right:10px"/>
-                    <div style="flex:1">
-                        <strong>${item.name}</strong><br>
-                        Màu: ${item.color} - Size: ${item.size}<br>
-                        <div style="margin:5px 0">
-                            <button onclick="changeQty(${index}, -1)">➖</button>
-                            <span style="margin:0 10px">${item.qty}</span>
-                            <button onclick="changeQty(${index}, 1)">➕</button>
-                        </div>
-                        <div>
-                            Đơn giá: ${item.price.toLocaleString()} ₫<br>
-                            <b>Thành tiền: ${subTotal.toLocaleString()} ₫</b>
-                        </div>
-                    </div>
-                    <button onclick="removeItem(${index})" style="margin-left:10px">❌ Xoá</button>
-                </div>`;
-                });
-
-                container.innerHTML = html;
-                totalBox.innerHTML = `<h3>Tổng cộng: ${total.toLocaleString()} ₫</h3>`;
+            // If cart is empty, add sample product for demo
+            if (cart.length === 0) {
+                cart.push({ ...sampleProduct });
+                localStorage.setItem("cart", JSON.stringify(cart));
             }
 
-            // Hàm xoá
-            window.removeItem = function (index) {
-                cart.splice(index, 1);
-                localStorage.setItem("cart", JSON.stringify(cart));
-                renderCart();
-            };
+            renderCart();
+        });
 
-            // Hàm thay đổi số lượng
-            window.changeQty = function (index, delta) {
-                cart[index].qty += delta;
-                if (cart[index].qty <= 0) {
-                    if (confirm("Bạn có muốn xoá sản phẩm này không?")) {
+        function renderCart() {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const container = document.getElementById("cartItems");
+            const itemCountEl = document.getElementById("itemCount");
+            const subtotalEl = document.getElementById("subtotal");
+            const totalEl = document.getElementById("totalAmount");
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                                        <div style="text-align: center; padding: 40px;">
+                                            <i class="fas fa-shopping-cart" style="font-size: 60px; color: #ddd; margin-bottom: 20px;"></i>
+                                            <h3>Giỏ hàng trống</h3>
+                                            <p>Hãy thêm sản phẩm vào giỏ hàng</p>
+                                        </div>
+                                    `;
+                itemCountEl.textContent = "(0) sản phẩm";
+                subtotalEl.textContent = "0₫";
+                totalEl.textContent = "0₫";
+                return;
+            }
+
+            let html = "";
+            let totalItems = 0;
+            let subtotal = 0;
+
+            cart.forEach((item, index) => {
+                totalItems += item.qty;
+                const itemTotal = item.qty * item.price;
+                subtotal += itemTotal;
+
+                html += `
+                                    <div class="cart-item">
+                                        <img src="${item.image}" alt="${item.name}" class="item-image">
+                                        <div class="item-details">
+                                            <div class="brand">${item.brand}</div>
+                                            <div class="item-name">${item.name}</div>
+                                            <div class="item-variant">${item.variant}</div>
+                                            <div class="item-price">${item.price.toLocaleString()}₫</div>
+
+                                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                                <div class="quantity-controls">
+                                                    <button class="qty-btn" onclick="changeQuantity(${index}, -1)">-</button>
+                                                    <span class="qty-display">${item.qty}</span>
+                                                    <button class="qty-btn" onclick="changeQuantity(${index}, 1)">+</button>
+                                                </div>
+                                                <div class="item-total">${itemTotal.toLocaleString()}₫</div>
+                                            </div>
+
+                                            <button class="remove-btn" onclick="removeItem(${index})">
+                                                <i class="fas fa-trash"></i> Xóa
+                                            </button>
+                                        </div>
+                                    </div>`;
+            });
+
+            container.innerHTML = html;
+            itemCountEl.textContent = `(${totalItems}) sản phẩm`;
+            subtotalEl.textContent = `${subtotal.toLocaleString()}₫`;
+            totalEl.textContent = `${subtotal.toLocaleString()}₫`;
+        }
+
+        function changeQuantity(index, change) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            if (cart[index]) {
+                cart[index].qty += change;
+
+                // Ensure quantity doesn't go below 1
+                if (cart[index].qty < 1) {
+                    if (confirm("Bạn có muốn xóa sản phẩm này khỏi giỏ hàng?")) {
                         cart.splice(index, 1);
                     } else {
                         cart[index].qty = 1;
                     }
                 }
+
                 localStorage.setItem("cart", JSON.stringify(cart));
                 renderCart();
+            }
+        }
+
+        function removeItem(index) {
+            if (confirm("Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?")) {
+                let cart = JSON.parse(localStorage.getItem("cart")) || [];
+                cart.splice(index, 1);
+                localStorage.setItem("cart", JSON.stringify(cart));
+                renderCart();
+            }
+        }
+
+        function checkout() {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            if (cart.length === 0) {
+                alert("Giỏ hàng của bạn đang trống!");
+                return;
+            }
+
+            // Calculate total
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            window.location.href = '@Url.Action("DeliverLocate", "Home")';
+        }
+
+        // Function to add new product to cart (for demo purposes)
+        function addSampleProduct() {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            const newProduct = {
+                id: Date.now(), // Unique ID
+                brand: "ADIDAS",
+                name: "Giày Chạy Bộ Nam Adidas Ultraboost",
+                variant: "ĐEN / US 9",
+                price: 2400000,
+                image: "https://via.placeholder.com/300x300/333333/FFFFFF?text=Adidas+Ultraboost",
+                color: "Đen",
+                size: "US 9",
+                qty: 1
             };
 
+            cart.push(newProduct);
+            localStorage.setItem("cart", JSON.stringify(cart));
             renderCart();
-        });
 
-        document.querySelectorAll('.size-option').forEach(option => {
-            option.addEventListener('click', function () {
-
-                this.parentElement.querySelectorAll('.size-option').forEach(opt => {
-                    opt.classList.remove('selected');
-                });
-
-                this.classList.add('selected');
-            });
-        });
-
-
-        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-            button.addEventListener('click', function () {
-                const productCard = this.closest('.product-card');
-                const productName = productCard.querySelector('.product-name').textContent;
-                const selectedSize = productCard.querySelector('.size-option.selected').textContent;
-
-                alert(`Đã thêm "${productName}" (${selectedSize}) vào giỏ hàng!`);
-
-
-            });
-        });
-
+            alert("Đã thêm sản phẩm mới vào giỏ hàng!");
+        }
     </script>
 
+    <!-- Demo button to add more products -->
+    <div style="position: fixed; bottom: 20px; right: 20px;">
+        <button onclick="addSampleProduct()" style="
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        ">
+            <i class="fas fa-plus"></i> Thêm SP Mẫu
+        </button>
+    </div>
 </body>
 </html>
-
