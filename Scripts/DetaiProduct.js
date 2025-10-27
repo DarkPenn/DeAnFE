@@ -191,10 +191,8 @@
         // Lưu thông tin sản phẩm để trang sau dùng
         localStorage.setItem("buyNowItem", JSON.stringify(orderItem));
 
-
-
         // Chuyển sang trang thanh toán ngay
-        window.location.href = '@Url.Action("DeliverLocate","Home")';
+        window.location.href = "/Home/DeliverLocate";
     }
     // GẮN HÀM TOÀN CỤC
     window.changeImage = changeImage;

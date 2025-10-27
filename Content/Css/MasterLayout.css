@@ -116,6 +116,7 @@ header {
 .nav-menu ul {
     display: flex;
     flex-wrap: wrap;
+    overflow-x:auto;
     gap: 10px;
     justify-content: center;
     list-style: none;
@@ -255,6 +256,19 @@ header {
 }
 
 /* ================= MEDIA QUERIES ================= */
+@media (max-width: 1200px) {
+    .main-header .logo img {
+        max-height: 80px;
+    }
+
+    .search-box input {
+        width: 150px;
+    }
+
+    .icons {
+        gap: 8px;
+    }
+}
 
 /* Tablet */
 @media (max-width: 992px) {
