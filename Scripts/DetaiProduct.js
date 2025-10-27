@@ -194,7 +194,7 @@
 
 
         // Chuyển sang trang thanh toán ngay
-        window.location.href = "/Home/DeliverLocate";
+        window.location.href = '@Url.Action("DeliverLocate","Home")';
     }
     // GẮN HÀM TOÀN CỤC
     window.changeImage = changeImage;
