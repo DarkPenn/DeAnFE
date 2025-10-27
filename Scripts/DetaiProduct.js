@@ -107,7 +107,7 @@
 
         //  Lưu giỏ hàng
         localStorage.setItem("cart", JSON.stringify(cart));
-        updateCartCount();
+
 
         //  Cập nhật UI
         renderCart();
@@ -190,7 +190,7 @@
 
         // Lưu thông tin sản phẩm để trang sau dùng
         localStorage.setItem("buyNowItem", JSON.stringify(orderItem));
-        updateCartCount();
+
 
 
         // Chuyển sang trang thanh toán ngay
