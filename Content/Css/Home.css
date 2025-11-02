@@ -271,16 +271,17 @@ body {
     .newcombo-container {
         width: 100%;
         max-width: 100%;
-        flex-direction: column;
         flex-wrap: wrap;
         align-items: center;
         padding-left: 5px;
         padding-right: 5px;
+        justify-content: center;
+        display: flex;
     }
 
     .voucher, .combo {
-        width: 100%;
-        max-width: 100%;
+        flex: 1 1 45%;
+        max-width: 45%;
     }
 
     /* Ảnh co theo màn hình */
