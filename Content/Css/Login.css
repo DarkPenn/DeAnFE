@@ -198,3 +198,9 @@ button {
         text-decoration: underline;
         color: #000;
     }
+
+@media (max-width:1024px) {
+    .login-box {
+        width: 300px;
+    }
+}

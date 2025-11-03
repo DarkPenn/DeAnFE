@@ -14,7 +14,7 @@ body {
     font-size: 14px;
 }
 
-/* ===== MAIN LAYOUT (Container chính) ===== */
+/*  MAIN LAYOUT (Container chính)  */
 main {
     display: flex;
     justify-content: center;
@@ -26,7 +26,7 @@ main {
     flex: 1;
 }
 
-/* ===== LEFT SECTION (Thông tin & Thanh toán) ===== */
+/*  LEFT SECTION (Thông tin & Thanh toán)  */
 .left-section {
     flex: 1; /* Chiếm phần lớn diện tích */
     background: #fff;
@@ -188,7 +188,7 @@ main {
     margin-right: 5px;
 }
 
-/* ===== RIGHT SECTION (Đơn hàng) ===== */
+/*  RIGHT SECTION (Đơn hàng)  */
 .right-section {
     width: 400px; 
     background: #fff;
@@ -388,7 +388,7 @@ main {
 img[alt="Sản phẩm"], .card-logos img, .card-logos-small img {
     background-color: #f0f0f0; /* Giả định rằng không có ảnh, để tạo màu nền */
 }
-/* ===== MAIN LAYOUT (Container chính) ===== */
+/*  MAIN LAYOUT (Container chính)  */
 main {
     display: flex;
     justify-content: center;
@@ -397,12 +397,12 @@ main {
     padding: 20px;
     max-width: 1100px;
     margin: 0 auto;
-    flex-wrap: wrap; /* ✅ Cho phép 2 cột tự xuống hàng khi hẹp */
+    flex-wrap: wrap; /*  Cho phép 2 cột tự xuống hàng khi hẹp */
 }
 
-/* ===== RIGHT SECTION (Đơn hàng) ===== */
+/*  RIGHT SECTION (Đơn hàng)  */
 .right-section {
-    flex: 0 0 380px; /* ✅ Dùng flex thay vì width cứng */
+    flex: 0 0 380px; /*  Dùng flex thay vì width cứng */
     background: #fff;
     padding: 20px;
     border-radius: 4px;
@@ -413,7 +413,7 @@ main {
 
 .left-section {
     flex: 1;
-    min-width: 300px; /* ✅ Không bị ép nhỏ quá */
+    min-width: 300px; /*  Không bị ép nhỏ quá */
     background: #fff;
     padding: 15px;
     border-radius: 4px;
@@ -431,7 +431,12 @@ main {
         width: 100%;
         max-width: 100%;
     }
-
+    .right-section{
+        order:1;
+    }
+    .left-section{
+        order:2;
+    }
     .action-buttons {
         flex-direction: column;
         gap: 10px;

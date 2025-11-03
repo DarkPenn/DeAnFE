@@ -306,7 +306,9 @@ header {
         flex-direction: column;
         align-items: center;
     }
-
+    .topbar-btn {
+        display: none;
+    }
     .logo img {
         max-height: 80px;
     }

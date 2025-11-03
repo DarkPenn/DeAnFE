@@ -236,12 +236,13 @@
                 </td>
                 <td>${order.total.toLocaleString()} ₫</td>
                 <td>
-                    <button class="delete-btn" data-index="${index}" style="background-color:red;border-radius:10px;padding:5px;color:white;">Xóa</button>
                     <button class="detail-btn" data-index="${index}" style="background-color:blue;border-radius:10px;padding:5px;color:white;">Chi tiết</button>
                 </td>
             </tr>
             `;
                     });
+                    //Nút XÓA ở đặt lại ở dòng 239 để Xóa bớt lịch sử đơn hàng được tạo khi test chức năng
+                    //<button class="delete-btn" data-index="${index}" style="background-color:red;border-radius:10px;padding:5px;color:white;">Xóa</button>
 
                     // Gắn sự kiện xóa
                     document.querySelectorAll(".delete-btn").forEach(btn => {
