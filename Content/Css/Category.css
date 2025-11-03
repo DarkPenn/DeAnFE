@@ -7,7 +7,7 @@ div {
 }
 .banner {
     width: 100%;
-    height: 200px;
+    height: auto;
     overflow: hidden; /* ẩn phần ảnh tràn khi zoom */
     padding-bottom: 10px;
 }
@@ -33,6 +33,9 @@ div {
     padding-right: 300px;
     padding-bottom: 20px;
 }
+    .combo-container span {
+        font-size: 30px;
+    }
 
 .combo {
     display: inline-block;
@@ -52,17 +55,17 @@ div {
     align-items: flex-start;
 }
 
-/* ========== SIDEBAR ========== */
+/*  SIDEBAR  */
 .sidebar {
     width: 400px;
     border-right: 1px solid #ddd;
     padding: 30px;
     background: #fff;
-    height: 100vh;
+    height: auto;
     overflow-y: hidden;
 }
 
-/* ========== KHU VỰC SẢN PHẨM ========== */
+/*  KHU VỰC SẢN PHẨM  */
 .product-area {
     flex: 1;
     padding: 30px;
@@ -112,7 +115,7 @@ div {
         margin: 0;
     }
 
-/* ========== FILTER SUMMARY (LỌC THEO) ========== */
+/*  FILTER SUMMARY (LỌC THEO)  */
 .filter-summary {
     border: 1px solid #ddd;
     padding: 30px;
@@ -160,7 +163,7 @@ div {
         cursor: pointer;
     }
 
-/* ========== FILTER GROUP ========== */
+/*  FILTER GROUP  */
 .filter-group {
     margin-bottom: 20px;
 }
@@ -407,7 +410,7 @@ div {
     overflow-x: hidden;
 }
 
-/* ========== RESPONSIVE ========== */
+/*  RESPONSIVE  */
 /* Tablet: Dưới 1024px */
 @media (max-width: 1024px) {
     .sidebar {
@@ -448,9 +451,22 @@ div {
     }
 
     .combo-container {
+        width: 100%;
+        max-width: 100%;
         flex-wrap: wrap;
-        padding-left: 10px;
-        padding-right: 10px;
+        align-items: center;
+        padding-left: 5px;
+        padding-right: 5px;
+        justify-content: center;
+        display: flex;
+    }
+    .combo-container span{
+        font-size:20px;
+    }
+    .combo {
+        flex: 1 1 15%;
+        max-width: 45%;
+        align-items:center;
     }
 
     .product-info-box {
@@ -470,7 +486,7 @@ div {
     }
 
     .combo-container span {
-        font-size: 18px;
+        font-size: 15px;
         text-align: center;
     }
 
