@@ -1,5 +1,5 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
-
+    const mainImage = document.getElementById("mainImage");
 
     // DANH SÁCH ẢNH THEO MÀU
 
@@ -162,14 +162,11 @@
     // MUA NGAY
     function buyNow() {
         let sizeEl = document.querySelector(".size.active");
-
-        //  Nếu chưa chọn size thì cảnh báo và DỪNG LUÔN
         if (!sizeEl) {
-            alert("⚠️ Vui lòng chọn kích thước trước khi mua!");
-            return false; //  Dừng hàm, KHÔNG chuyển trang
+            alert("⚠️ Vui lòng chọn kích thước trước khi thêm vào giỏ!");
+            return;
         }
 
-        //  Nếu đã chọn size thì chuyển trang liền
         let size = sizeEl.innerText;
         let qty = parseInt(document.getElementById("qty").value) || 1;
         let productName = "Adidas F50 League";
@@ -177,13 +174,33 @@
         let price = 2400000;
         let image = mainImage.src;
 
-        let orderItem = { name: productName, color: productColor, size, qty, price, image };
+        let newItem = { name: productName, color: productColor, size, qty, price, image };
 
-        // Lưu thông tin sản phẩm để trang sau dùng
-        localStorage.setItem("buyNowItem", JSON.stringify(orderItem));
+        //  Lấy giỏ hàng hiện có
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-        // Chuyển sang trang thanh toán ngay
-        window.location.href = "/Home/DeliverLocate";
+        //  Kiểm tra trùng sản phẩm (theo tên + màu + size)
+        let exist = cart.find(item =>
+            item.name === newItem.name &&
+            item.color === newItem.color &&
+            item.size === newItem.size
+        );
+
+        if (exist) {
+            exist.qty += qty; // nếu trùng thì cộng số lượng
+        } else {
+            cart.push(newItem); // nếu khác thì thêm mới
+        }
+
+        //  Lưu giỏ hàng
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        //  Cập nhật UI
+        renderCart();
+        setTimeout(() => {
+            window.location.href = "/Home/DeliverLocate";
+        },100);
+
     }
     // GẮN HÀM TOÀN CỤC
     window.changeImage = changeImage;

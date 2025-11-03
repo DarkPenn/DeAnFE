@@ -267,6 +267,13 @@ header {
     .icons {
         gap: 8px;
     }
+    .footer-column {
+        width: 100%;
+        padding: 5px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
 /* Tablet */
@@ -283,6 +290,13 @@ header {
     .nav-menu a {
         font-size: 16px;
         padding: 8px 0;
+    }
+    .footer-column {
+        width: 100%;
+        padding: 5px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 }
 
@@ -329,6 +343,9 @@ header {
     .footer-column {
         width: 100%;
         padding: 5px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 }
 
@@ -350,7 +367,13 @@ header {
         width: 20px;
         height: 14px;
     }
-
+    .footer-column {
+        width: 100%;
+        padding: 5px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
     .footer-column h4 {
         font-size: 13px;
     }
@@ -361,7 +384,7 @@ header {
     }
 
     .payment-icons img {
-        max-width: 80px;
+        max-width: 200px;
     }
 
     .certifications img {

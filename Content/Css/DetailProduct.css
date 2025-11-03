@@ -299,18 +299,23 @@ html, body {
 
 /* nội dung chi tiết phải */
 .details-right h3 {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 700;
     color: #001a35;
     margin-bottom: 10px;
+    padding: 7px;
 }
-
 .details-right p {
     font-size: 15px;
     color: #333;
     line-height: 1.6;
     margin-bottom: 20px;
+    padding: 7px;
 }
+.details-right ul li{
+    padding: 7px;
+}
+
 
 /* =================== POPUP =================== */
 .popup-overlay {

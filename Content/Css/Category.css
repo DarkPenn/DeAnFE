@@ -426,6 +426,11 @@ div {
     .product-info-box {
         padding: 30px 60px;
     }
+    .product-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
 }
 
 /* Mobile: Dưới 768px */
